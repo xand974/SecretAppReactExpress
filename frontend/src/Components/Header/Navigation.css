@@ -1,0 +1,11 @@
+.nav__li {
+  display: flex;
+  align-items: center;
+}
+
+.nav__li li {
+  list-style: none;
+  margin: 10px;
+  color: white;
+  position: relative;
+}

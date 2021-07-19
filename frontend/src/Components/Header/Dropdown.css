@@ -1,0 +1,16 @@
+.dropdown__nav {
+  position: absolute;
+  box-shadow: 0 0 20px #f8edeb;
+  margin-top: 10px;
+  width: 200px;
+  padding: 10px;
+}
+
+.dropdown__nav li {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  color: #ccc1bf;
+}
+.dropdown__nav li:hover {
+  color: black;
+}

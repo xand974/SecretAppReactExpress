@@ -2,29 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
 import Dropdown from "./Dropdown";
+import defaultPic from "../../Images/default-user-image.png";
 
 export default function Navigation() {
   return (
     <div className="nav__li">
       <Link style={{ textDecoration: "none" }} to="/">
-        <li>Home</li>
+        <li className="list">Home</li>
       </Link>
-      <Link style={{ textDecoration: "none" }} to="/post">
-        <li>
-          Poster
-          <Dropdown />
-        </li>
-      </Link>
+      <div className="drop">
+        <Link style={{ textDecoration: "none" }} to="/post">
+          <li className="list">Poster</li>
+        </Link>
+        <Dropdown />
+      </div>
 
-      <Link style={{ textDecoration: "none" }} to="/chat">
+      <Link className="list" style={{ textDecoration: "none" }} to="/chat">
         <li>Chat</li>
       </Link>
 
-      <Link style={{ textDecoration: "none" }} to="/contact">
+      <Link className="list" style={{ textDecoration: "none" }} to="/contact">
         <li>Contact</li>
       </Link>
-      <Link style={{ textDecoration: "none" }} to="/profile/:id">
-        <img src="./default-user-image.png" alt="user default" />
+      <Link
+        className="list"
+        style={{ textDecoration: "none" }}
+        to="/profile/:id"
+      >
+        <img src={defaultPic} alt="user default" />
       </Link>
     </div>
   );

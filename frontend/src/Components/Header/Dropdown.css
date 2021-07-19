@@ -1,16 +1,30 @@
 .dropdown__nav {
   position: absolute;
+  z-index: 10;
   box-shadow: 0 0 20px #f8edeb;
   margin-top: 10px;
   width: 200px;
   padding: 10px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.drop {
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown__nav li {
   font-family: "Courier New", Courier, monospace;
   font-size: 12px;
-  color: #ccc1bf;
+  color: #271e33;
+  list-style: none;
+  padding: 15px;
 }
 .dropdown__nav li:hover {
-  color: black;
+  color: rgb(255, 255, 255);
+  background: #000000;
+  transition: 0.3s;
 }

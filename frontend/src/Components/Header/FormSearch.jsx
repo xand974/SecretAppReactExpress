@@ -1,10 +1,13 @@
 import React from "react";
+import "./FormSearch.css";
 
 export default function FormSearch() {
   return (
-    <form>
-      <input type="text" />
-      <button>Rechercher</button>
-    </form>
+    <div className="search__container">
+      <form>
+        <input spellCheck={false} type="text" />
+        <button>Rechercher</button>
+      </form>
+    </div>
   );
 }

@@ -2,9 +2,14 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 90px;
   padding: 10px 40px;
   background: white;
   color: #0d1c38;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.295);
+  transition: height 0.3s ease-out;
+}
+
+nav:hover {
+  height: 400px;
 }

@@ -21,4 +21,22 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
+  login_post: async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const userFound = User.findOne({ username });
+
+      if (!userFound)
+        return res.status(401).send("vous n'avez pas encore de compte");
+      const isMatched = await bcrypt.compare(password, userFound.password);
+      if (isMatched) {
+        req.session.userId = userFound._id;
+        return res.status(200).send("vous êtes connectés");
+      } else {
+        return res.status(401).send("mot de passe ou identifiant incorrecte");
+      }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
 };

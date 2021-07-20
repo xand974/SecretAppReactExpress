@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const home_controller = require("../controllers/home.controller");
+const cookie = require("../middlewares/cookie");
 
-router.get("/home", home_controller.all_notes_get);
-router.post("/create", home_controller.create_notes_post);
+router.get("/home", cookie.authorize, home_controller.all_notes_get);
+router.post("/create", cookie.authorize, home_controller.create_notes_post);
 
 module.exports = router;

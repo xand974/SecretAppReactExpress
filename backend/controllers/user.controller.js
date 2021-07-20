@@ -2,6 +2,9 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 module.exports = {
+  register_get: (req, res) => {
+    res.json("création de compte");
+  },
   register_post: async (req, res) => {
     try {
       const { username, password } = req.body;
@@ -20,6 +23,9 @@ module.exports = {
     } catch (err) {
       return res.status(500).send(err);
     }
+  },
+  login_get: (req, res) => {
+    res.json("connectez vous à votre compte sur cette page");
   },
   login_post: async (req, res) => {
     try {

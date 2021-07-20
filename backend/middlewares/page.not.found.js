@@ -1,6 +1,6 @@
 var noteFound = (req, res, next) => {
   if (res.status(404)) {
-    return res.json("not found");
+    return res.json("page not found");
   }
   next();
 };

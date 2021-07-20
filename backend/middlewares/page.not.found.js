@@ -4,3 +4,5 @@ var noteFound = (req, res, next) => {
   }
   next();
 };
+
+module.exports = noteFound;

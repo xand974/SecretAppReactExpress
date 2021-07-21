@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./Main.css";
-import Axios from "../../config/axios";
+import Api from "../../config/axios";
 
 export default function Main() {
   const [userPosts, setUserPost] = useState([]);
 
   useEffect(() => {
-    Axios.get("/home")
+    Api.get("/home")
       .then((res) => {
         console.log(res);
         return setUserPost(res.data);
@@ -30,6 +30,7 @@ export default function Main() {
         );
       })}
       <Card title="Apple" content="i like apples" id="1" />
+      <p>Hier</p>
     </div>
   );
 }

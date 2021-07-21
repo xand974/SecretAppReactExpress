@@ -8,11 +8,6 @@ const noteSchema = new Schema({
   content: String,
   comments: [{ body: String, date: Date }],
   date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs: Number,
-  },
 });
 
 module.exports = new mongoose.model("Note", noteSchema);

@@ -8,7 +8,7 @@ const authorize = (req, res, next) => {
 };
 const redirectHome = (req, res, next) => {
   if (req.session.userId) {
-    //res.send("vous êtes déjà connectés");
+    console.log("vous êtes déjà connectés");
     res.redirect("/home");
   } else {
     next();

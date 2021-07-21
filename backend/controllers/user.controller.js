@@ -30,11 +30,13 @@ module.exports = {
   login_post: async (req, res) => {
     try {
       const { username, password } = req.body;
-      const userFound = User.findOne({ username });
+      const userFound = await User.findOne({ username });
 
       if (!userFound)
         return res.status(401).send("vous n'avez pas encore de compte");
+
       const isMatched = await bcrypt.compare(password, userFound.password);
+
       if (isMatched) {
         req.session.userId = userFound._id;
         return res.status(200).send("vous êtes connectés");
@@ -44,5 +46,9 @@ module.exports = {
     } catch (err) {
       return res.status(500).send(err);
     }
+  },
+  logout_post: (req, res) => {
+    req.session.destroy();
+    return res.json("vous êtes déconnecté");
   },
 };

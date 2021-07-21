@@ -2,7 +2,7 @@ import Header from "./Components/Header/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Main from "./Components/Main/Main";
-import Register from "./Components/User/Register";
+import UserLog from "./Components/UserLog/UserLog";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
             <Main />
           </Route>
           <Route path="/" exact>
-            <Register />
+            <UserLog />
           </Route>
         </Switch>
       </Router>

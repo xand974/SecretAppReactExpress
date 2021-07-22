@@ -51,4 +51,54 @@ module.exports = {
     req.session.destroy();
     return res.json("vous êtes déconnecté");
   },
+  follow_post: async (req, res) => {
+    try {
+      const { userId } = req.session;
+      var { id } = req.params;
+      const userFound = await User.findOne({ _id: userId });
+      const userToFollow = await User.findById({ _id: id });
+      if (!userFound)
+        return res
+          .status(401)
+          .send("vous devez vous connecter pour ajouter cette personne");
+
+      if (userFound._id == id)
+        return res.status(401).send("vous ne pouvez pas vous suivre vous même");
+
+      if (!userToFollow)
+        return res.status(404).send("cette personne n'a pas été trouvé");
+
+      if (userFound.following.length === 0) {
+        User.findByIdAndUpdate(
+          { _id: userId },
+          { $push: { following: userToFollow } }
+        ).then(() => {
+          return res
+            .status(200)
+            .send("personne ajouté car zero personne encore :" + userToFollow);
+        });
+      } else {
+        userFound.following.forEach((user) => {
+          if (user.username === userToFollow.username) {
+            return res.status(401).send("vous suivez déjà cette personne");
+          } else {
+            User.findByIdAndUpdate(
+              { _id: userId },
+              { $push: { following: userToFollow } }
+            );
+            return res
+              .status(200)
+              .send(
+                "personne ajouté car " +
+                  userFound.following.length +
+                  "personnes dans le tableau:" +
+                  userToFollow
+              );
+          }
+        });
+      }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
 };

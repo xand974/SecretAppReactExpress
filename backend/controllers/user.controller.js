@@ -59,6 +59,7 @@ module.exports = {
       var { id } = req.params;
       const userFound = await User.findOne({ _id: userId });
       const userToFollow = await User.findById({ _id: id });
+      const { password, updatedAt, ...other } = userToFollow._doc;
       if (!userFound)
         return res
           .status(401)
@@ -73,7 +74,7 @@ module.exports = {
       if (userFound.following.length === 0) {
         User.findByIdAndUpdate(
           { _id: userId },
-          { $push: { following: userToFollow } }
+          { $push: { following: other } }
         ).then(() => {
           return res
             .status(200)
@@ -86,19 +87,53 @@ module.exports = {
           } else {
             User.findByIdAndUpdate(
               { _id: userId },
-              { $push: { following: userToFollow } }
-            );
-            return res
-              .status(200)
-              .send(
-                "personne ajouté car " +
-                  userFound.following.length +
-                  "personnes dans le tableau:" +
-                  userToFollow
-              );
+              { $push: { following: other } }
+            ).then(() => {
+              return res
+                .status(200)
+                .send(
+                  "personne ajouté car " +
+                    userFound.following.length +
+                    "personnes dans le tableau:" +
+                    userToFollow
+                );
+            });
           }
         });
       }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
+  unfollow_post: async (req, res) => {
+    const { userId } = req.session;
+    var { id } = req.params;
+    const userFound = await User.findOne({ _id: userId });
+    const userToUnFollow = await User.findById({ _id: id });
+    const { password, updatedAt, ...other } = userToUnFollow._doc;
+    if (!userFound)
+      return res
+        .status(401)
+        .send("vous devez vous connecter pour unfollow cette personne");
+
+    if (userFound._id == id)
+      return res.status(401).send("vous ne pouvez pas vous unfollow vous même");
+
+    if (!userToUnFollow)
+      return res.status(404).send("cette personne n'a pas été trouvé");
+
+    try {
+      const result = await User.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { following: other } }
+      );
+      return res
+        .status(200)
+        .send(
+          "utilisateur :" +
+            userToUnFollow.username +
+            " a été supprimé avec succès"
+        );
     } catch (err) {
       return res.status(500).send(err);
     }
@@ -108,7 +143,8 @@ module.exports = {
     const userFound = await User.findOne({ _id: id });
     !userFound && res.status(404).send("aucun utilisateur trouvé");
 
-    return res.status(200).send(userFound);
+    const { password, updatedAt, ...other } = userFound._doc;
+    return res.status(200).send(other);
   },
   user_update: async (req, res) => {
     const { userId } = req.session;

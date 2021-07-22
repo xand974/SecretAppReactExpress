@@ -11,5 +11,6 @@ router.post("/login", cookie.redirectHome, user_controller.login_post);
 router.post("/logout", cookie.authorize, user_controller.logout_post);
 
 router.post("/follow/:id", cookie.authorize, user_controller.follow_post);
+router.get("/:id", cookie.authorize, user_controller.user_get);
 
 module.exports = router;

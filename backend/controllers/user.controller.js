@@ -101,4 +101,11 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
+  user_get: async (req, res) => {
+    const { id } = req.params;
+    const userFound = await User.findOne({ _id: id });
+    !userFound && res.status(404).send("aucun utilisateur trouvé");
+
+    return res.status(200).send(userFound);
+  },
 };

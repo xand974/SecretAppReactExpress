@@ -113,19 +113,22 @@ module.exports = {
   user_update: async (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
-    const { password } = req.body;
+    var { password } = req.body;
     if (userId != id)
       return res.status(403).send("vous ne pouvez que modifier votre compte");
     if (password) {
       try {
         const newSalt = await bcrypt.genSalt(10);
-        password = await bcrypt.hash(password, newSalt);
+        req.body.password = await bcrypt.hash(password, newSalt);
       } catch (err) {
         return res.status(500).json(err);
       }
     }
     try {
-      const user = await User.findByIdAndUpdate(id, { $set: req.body });
+      const user = await User.findOneAndUpdate(
+        { _id: userId },
+        { $set: req.body }
+      );
       return res.status(200).json("successfully updated" + user);
     } catch (err) {
       return res.status(500).json(err);

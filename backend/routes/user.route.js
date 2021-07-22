@@ -13,5 +13,6 @@ router.post("/logout", cookie.authorize, user_controller.logout_post);
 router.post("/follow/:id", cookie.authorize, user_controller.follow_post);
 router.get("/:id", cookie.authorize, user_controller.user_get);
 router.patch("/:id", cookie.authorize, user_controller.user_update);
+router.delete("/:id", cookie.authorize, user_controller.user_delete);
 
 module.exports = router;

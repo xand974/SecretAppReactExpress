@@ -134,4 +134,18 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+  user_delete: async (req, res) => {
+    const { userId } = req.session;
+    const { id } = req.params;
+    if (userId != id)
+      return res.status(403).send("vous ne pouvez que supprimer votre compte");
+
+    try {
+      const userDeleted = await User.findOneAndDelete({ _id: userId });
+      req.session.destroy();
+      return res.status(200).send("utilisateur a été supprimé");
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
 };

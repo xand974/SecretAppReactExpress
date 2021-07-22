@@ -16,6 +16,7 @@ module.exports = {
       var user = new User({
         username,
         password: newPass,
+        isAdmin: false,
       });
 
       await user.save();
@@ -39,6 +40,7 @@ module.exports = {
 
       if (isMatched) {
         req.session.userId = userFound._id;
+        // req.user.isAdmin = false;
         return res.status(200).send("vous êtes connectés");
       } else {
         return res.status(401).send("mot de passe ou identifiant incorrecte");
@@ -107,5 +109,26 @@ module.exports = {
     !userFound && res.status(404).send("aucun utilisateur trouvé");
 
     return res.status(200).send(userFound);
+  },
+  user_update: async (req, res) => {
+    const { userId } = req.session;
+    const { id } = req.params;
+    const { password } = req.body;
+    if (userId != id)
+      return res.status(403).send("vous ne pouvez que modifier votre compte");
+    if (password) {
+      try {
+        const newSalt = await bcrypt.genSalt(10);
+        password = await bcrypt.hash(password, newSalt);
+      } catch (err) {
+        return res.status(500).json(err);
+      }
+    }
+    try {
+      const user = await User.findByIdAndUpdate(id, { $set: req.body });
+      return res.status(200).json("successfully updated" + user);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   },
 };

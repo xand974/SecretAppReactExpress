@@ -4,10 +4,17 @@ const User = require("../models/User");
 module.exports = {
   all_notes_get: async (req, res) => {
     try {
+      const { userId } = req.session;
+      const userFound = await User.findOne({ _id: userId });
       const listFound = await Note.find();
       if (!listFound) return res.json("no list found");
       if (listFound.length === 0)
-        return res.status(200).json("vous pouvez créer de nouveaux post");
+        return res
+          .status(200)
+          .json(
+            "vous êtes sur la page d'acceuil: vous pouvez créer de nouveaux post, bienvenue : " +
+              userFound.username
+          );
 
       return res.status(200).json(listFound);
     } catch (err) {

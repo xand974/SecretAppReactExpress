@@ -35,11 +35,13 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
-    idAdmin: {
+    isAdmin: {
       type: Boolean,
       default: false,
     },
+    description: String,
   },
+
   //date de la création etc ..
   { timestamps: true }
 );

@@ -116,7 +116,6 @@ module.exports = {
       return res
         .status(401)
         .send("vous devez vous connecter pour unfollow cette personne");
-
     if (userFound._id == id)
       return res.status(401).send("vous ne pouvez pas vous unfollow vous même");
 
@@ -133,7 +132,7 @@ module.exports = {
         .send(
           "utilisateur :" +
             userToUnFollow.username +
-            " a été supprimé avec succès"
+            " a été enlevé de votre liste d'amis"
         );
     } catch (err) {
       return res.status(500).send(err);

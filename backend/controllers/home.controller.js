@@ -28,14 +28,12 @@ module.exports = {
     try {
       const id = req.session.userId;
       const userFound = await User.findOne({ _id: id });
-      if (!userFound)
-        return res.status(401).json("connectez vous pour pouvoir vous poster");
 
       const { title, content } = req.body;
       var note = new Note({
         title,
         content,
-        author: userFound.username,
+        userId: userFound._id,
       });
 
       await note.save();
@@ -43,6 +41,58 @@ module.exports = {
       return res.json(note);
     } catch (err) {
       return res.status(500).json(err);
+    }
+  },
+  update_note_patch: async (req, res) => {
+    const noteFound = await Note.findById(req.params.id);
+    !noteFound && res.status(404).send("aucune note trouvée");
+    try {
+      if (noteFound.userId == req.session.userId) {
+        await noteFound.updateOne({ $set: req.body });
+
+        return res.status(200).send("post updated");
+      } else {
+        return res.status(403).send("vous ne pouvez modifier que vos post");
+      }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
+  delete_note_delete: async (req, res) => {
+    const noteFound = await Note.findById(req.params.id);
+    !noteFound && res.status(404).send("aucune note trouvée");
+    try {
+      if (noteFound.userId == req.session.userId) {
+        await noteFound.deleteOne();
+
+        return res.status(200).send("post deleted");
+      } else {
+        return res.status(403).send("vous ne pouvez supprimer que vos post");
+      }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
+  like_note_patch: async (req, res) => {
+    const noteFound = await Note.findById(req.params.id);
+    const { userId } = req.session;
+    console.log(req.session.userId);
+    !noteFound && res.status(404).send("aucune note trouvée");
+    try {
+      if (!noteFound.likes.includes(req.session.userId)) {
+        await noteFound.updateOne({ $push: { likes: req.session.userId } });
+        return res.status(200).send("post liked");
+      } else {
+        console.log("no");
+        await noteFound.updateOne({ $pull: { likes: req.session.userId } });
+        return res.status(200).send("vous avez disliked le post");
+      }
+    } catch (err) {
+      for (let i = 0; i < noteFound.likes.length; i++) {
+        console.log(noteFound.likes[i], userId);
+        console.log(noteFound.likes[i] === req.session.userId);
+      }
+      return res.status(500).send(err);
     }
   },
 };

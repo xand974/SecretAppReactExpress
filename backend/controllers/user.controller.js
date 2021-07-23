@@ -37,11 +37,12 @@ module.exports = {
         return res.status(401).send("vous n'avez pas encore de compte");
 
       const isMatched = await bcrypt.compare(password, userFound.password);
-
       if (isMatched) {
         req.session.userId = userFound._id;
         // req.user.isAdmin = false;
-        return res.status(200).send("vous êtes connectés");
+        return res
+          .status(200)
+          .send("vous êtes connectés : id:" + req.session.userId);
       } else {
         return res.status(401).send("mot de passe ou identifiant incorrecte");
       }

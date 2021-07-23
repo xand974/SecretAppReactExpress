@@ -104,11 +104,9 @@ module.exports = {
 
       const friendPost = await Promise.all(
         userFound.following.map((friend) => {
-          Note.find({ userId: friend._id });
+          return Note.find({ userId: friend._id });
         })
       );
-      console.log("user post" + userNotes);
-      console.log("friendPost :" + friendPost);
       return res.status(200).send(userNotes.concat(...friendPost));
     } catch (err) {
       return res.status(500).send(err);

@@ -1,6 +1,5 @@
-.cards {
-  margin: 60px;
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 90vh;
+.main {
+  display: grid;
+  grid-template-columns: 25% 45% 30%;
+  min-height: 100vh;
 }

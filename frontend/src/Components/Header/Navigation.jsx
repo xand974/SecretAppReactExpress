@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
 import Dropdown from "./Dropdown";
-import defaultPic from "../../Images/default-user-image.png";
-
+import { Person, Notifications, Message } from "@material-ui/icons";
 export default function Navigation() {
   var postLinks = [
     "Un post",
@@ -31,8 +30,12 @@ export default function Navigation() {
         <Dropdown listLinks={chatLinks} />
       </div>
 
-      <Link className="list" style={{ textDecoration: "none" }} to="/contact">
-        <li>Contact</li>
+      <Link
+        className="list"
+        style={{ textDecoration: "none" }}
+        to="/timeline/all"
+      >
+        <li>TimeLine</li>
       </Link>
 
       <div className="drop">
@@ -41,9 +44,13 @@ export default function Navigation() {
           style={{ textDecoration: "none" }}
           to="/profile/:id"
         >
-          <img src={defaultPic} alt="user default" />
+          <Person />
         </Link>
         <Dropdown listLinks={accountLinks} />
+      </div>
+      <div className="icon__container">
+        <Notifications />
+        <Message />
       </div>
     </div>
   );

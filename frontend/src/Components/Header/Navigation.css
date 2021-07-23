@@ -23,3 +23,8 @@
   margin-top: 0;
   cursor: pointer;
 }
+
+.icon__container * {
+  margin: 10px;
+  cursor: pointer;
+}

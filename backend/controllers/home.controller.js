@@ -81,10 +81,35 @@ module.exports = {
         await noteFound.updateOne({ $push: { likes: req.session.userId } });
         return res.status(200).send("post liked");
       } else {
-        console.log("no");
         await noteFound.updateOne({ $pull: { likes: req.session.userId } });
         return res.status(200).send("vous avez disliked le post");
       }
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
+  get_note_get: async (req, res) => {
+    try {
+      const noteFound = await Note.findById(req.params.id);
+      !noteFound && res.status(404).send("aucune note trouvée");
+      return res.status(200).send(noteFound);
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
+  get_timelinenote_get: async (req, res) => {
+    try {
+      const userFound = await User.findById(req.session.userId);
+      const userNotes = await Note.find({ userId: userFound._id });
+
+      const friendPost = await Promise.all(
+        userFound.following.map((friend) => {
+          Note.find({ userId: friend._id });
+        })
+      );
+      console.log("user post" + userNotes);
+      console.log("friendPost :" + friendPost);
+      return res.status(200).send(userNotes.concat(...friendPost));
     } catch (err) {
       return res.status(500).send(err);
     }

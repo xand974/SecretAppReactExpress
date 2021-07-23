@@ -75,11 +75,9 @@ module.exports = {
   },
   like_note_patch: async (req, res) => {
     const noteFound = await Note.findById(req.params.id);
-    const { userId } = req.session;
-    console.log(req.session.userId);
     !noteFound && res.status(404).send("aucune note trouvée");
     try {
-      if (!noteFound.likes.includes(req.session.userId)) {
+      if (!noteFound.likes.includes(req.session.userId.toString())) {
         await noteFound.updateOne({ $push: { likes: req.session.userId } });
         return res.status(200).send("post liked");
       } else {
@@ -88,10 +86,6 @@ module.exports = {
         return res.status(200).send("vous avez disliked le post");
       }
     } catch (err) {
-      for (let i = 0; i < noteFound.likes.length; i++) {
-        console.log(noteFound.likes[i], userId);
-        console.log(noteFound.likes[i] === req.session.userId);
-      }
       return res.status(500).send(err);
     }
   },

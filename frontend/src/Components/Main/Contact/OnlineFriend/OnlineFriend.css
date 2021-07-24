@@ -2,12 +2,29 @@
   display: flex;
   align-items: center;
   margin: 20px 0;
+  width: auto;
+  transition: color 0.3s ease-in;
+  cursor: pointer;
+}
+
+.online__main:hover {
+  color: rgba(167, 173, 255, 0.911);
 }
 
 .online__image {
   width: 30px;
   border-radius: 20px;
   object-fit: cover;
+}
+.online__image__container {
+  position: relative;
+}
+.online {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  padding: 2px;
+  color: rgb(128, 255, 128);
 }
 .online__name {
   margin-left: 10px;

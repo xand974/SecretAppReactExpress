@@ -4,7 +4,7 @@ import defaultImage from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 
-export default function Card({ title, content, id }) {
+export default function Card({ postImage, content, likes, date, comments }) {
   return (
     <div className="card">
       <div className="card__header">
@@ -15,30 +15,26 @@ export default function Card({ title, content, id }) {
             alt="profile"
           />
           <span>Alexandre Malet</span>
-          <small>Updated 5 mins ago</small>
+          <small>Updated {date}</small>
         </div>
         <div className="card__more">
           <MoreHoriz className="more" />
         </div>
       </div>
       <div className="card__body">
-        <p>my First post !</p>
+        <p>{content}</p>
         <div>
-          <img
-            src="https://www.publicdomainpictures.net/pictures/320000/nahled/background-image.png"
-            className="card__content__image"
-            alt="profile"
-          />
+          <img src={postImage} className="card__content__image" alt="profile" />
         </div>
       </div>
       <div className="card__footer">
         <div className="card__footer__logo">
           <ThumbUp className="thumb" />
           <Favorite className="fav" />
-          <span className="post__liked">3 People like it</span>
+          <span className="post__liked">{likes} People like it</span>
         </div>
         <div className="post__comment">
-          <p>9 comments</p>
+          <p>{comments} comments</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { Chat, Group, VideoCall, Wifi } from "@material-ui/icons";
+import { Bookmark, Chat, Group, VideoCall, Wifi } from "@material-ui/icons";
 import defaultProfilePicture from "../../../Images/user__default.jpeg";
 export default function Sidebar() {
   return (
@@ -22,8 +22,8 @@ export default function Sidebar() {
           <span>Groups</span>
         </li>
         <li>
-          <Wifi style={{ fontSize: "25px" }} />
-          <span>Feed</span>
+          <Bookmark style={{ fontSize: "25px" }} />
+          <span>Bookmark</span>
         </li>
         <button className="sidebar__button">Show More</button>
         <hr className="sidebar__line" />

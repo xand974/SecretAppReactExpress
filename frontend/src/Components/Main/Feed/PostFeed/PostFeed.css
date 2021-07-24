@@ -1,0 +1,73 @@
+.feed__post {
+  margin: 20px;
+  height: 200px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.438);
+  padding: 20px;
+}
+
+.feed__top {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.feed__input input {
+  width: 30vw;
+  outline: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 15px;
+  background: none;
+}
+
+.post__image img {
+  width: 30px;
+  margin-right: 20px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.logo__container {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.feed__logo {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.feed__logo li {
+  list-style: none;
+}
+
+.feed__logo span {
+  font-size: 11px;
+  margin-left: 10px;
+  font-family: sans-serif;
+  font-weight: 200;
+}
+
+.feed__post__button {
+  margin-left: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background: none;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: black;
+  transition: all 0.3s ease-in;
+}
+
+.feed__post__button:hover {
+  background: black;
+  border: 1px solid white;
+  color: white;
+}
+
+.logo {
+  color: rgb(197, 197, 197);
+}

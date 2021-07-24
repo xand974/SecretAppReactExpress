@@ -1,0 +1,23 @@
+.gif__container {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+.gif__container p {
+  font-family: sans-serif;
+  font-weight: 200;
+  font-size: 15px;
+}
+
+.gif__container strong {
+  font-size: 16px;
+  margin-left: 12px;
+}
+
+.gift {
+  color: white;
+  background: black;
+  padding: 5px;
+  border-radius: 20px;
+}

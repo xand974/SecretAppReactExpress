@@ -1,3 +1,14 @@
 .contact__container {
-  background: brown;
+  padding: 20px;
+  height: calc(100vh - 90px);
+  overflow-y: scroll;
+}
+.online__friend {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.text__bold {
+  font-family: sans-serif;
+  font-weight: 600;
 }

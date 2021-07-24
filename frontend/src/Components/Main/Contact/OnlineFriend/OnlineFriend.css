@@ -1,0 +1,17 @@
+.online__main {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.online__image {
+  width: 30px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+.online__name {
+  margin-left: 10px;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 200;
+}

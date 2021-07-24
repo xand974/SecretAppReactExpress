@@ -1,12 +1,13 @@
 import React from "react";
 import imageToImport from "../../../../Images/default-user-image.png";
 import { Album, EmojiEmotions, LocationCity } from "@material-ui/icons";
+import "./PostFeed.css";
 export default function PostFeed() {
   return (
     <div className="feed__post">
       <div className="feed__top">
         <div className="post__image">
-          <img src={imageToImport} alt="photo de profile" />
+          <img src={imageToImport} alt="profile" />
         </div>
         <div className="feed__input">
           <input placeholder="What's in your mind" />

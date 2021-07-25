@@ -1,7 +1,7 @@
 import "./Feed.css";
 import PostFeed from "./PostFeed/PostFeed";
 import Card from "../Card/Card";
-import { Post } from "../../../Data/Data";
+import { Post, User } from "../../../Data/Data";
 export default function Feed() {
   return (
     <div className="feed__container">
@@ -15,6 +15,12 @@ export default function Feed() {
               date={post.date}
               postImage={post.postImage}
               likes={post.likes}
+              username={
+                User.filter((user) => user.id === post.userId)[0].username
+              }
+              defaultImage={
+                User.filter((user) => user.id === post.userId)[0].profilePic
+              }
             />
           );
         })}

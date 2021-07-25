@@ -17,6 +17,7 @@
 .card__profile {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .card__profile span,
 .card__profile small {
@@ -36,7 +37,8 @@
   cursor: pointer;
 }
 .card__profile__image {
-  width: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 20px;
 }
 

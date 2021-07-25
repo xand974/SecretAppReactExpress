@@ -1,20 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import defaultImage from "../../../Images/default-user-image.png";
+import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 
-export default function Card({ postImage, content, likes, date, comments }) {
+export default function Card({
+  postImage,
+  content,
+  likes,
+  date,
+  comments,
+  username,
+  defaultImage,
+}) {
   return (
     <div className="card">
       <div className="card__header">
         <div className="card__profile">
           <img
-            src={defaultImage}
+            src={defaultImage == null ? defaultPic : defaultImage}
             className="card__profile__image"
             alt="profile"
           />
-          <span>Alexandre Malet</span>
+          <span>{username}</span>
           <small>Updated {date}</small>
         </div>
         <div className="card__more">

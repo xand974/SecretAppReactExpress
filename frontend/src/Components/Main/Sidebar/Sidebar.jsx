@@ -1,6 +1,7 @@
 import "./Sidebar.css";
+import Profile from "../Profile/Profile";
 import { Bookmark, Chat, Group, VideoCall, Wifi } from "@material-ui/icons";
-import defaultProfilePicture from "../../../Images/user__default.jpeg";
+import { User } from "../../../Data/Data";
 export default function Sidebar() {
   return (
     <div className="sidebar__container">
@@ -28,30 +29,15 @@ export default function Sidebar() {
         <button className="sidebar__button">Show More</button>
         <hr className="sidebar__line" />
         <ul className="sidebar__profile">
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
-          <div>
-            <img src={defaultProfilePicture} alt="" />
-            <li className="profile__li">Alexandre Malet</li>
-          </div>
+          {User.map((user) => {
+            return (
+              <Profile
+                username={user.username}
+                profilePic={user.profilePic}
+                key={user.id}
+              />
+            );
+          })}
         </ul>
       </div>
     </div>

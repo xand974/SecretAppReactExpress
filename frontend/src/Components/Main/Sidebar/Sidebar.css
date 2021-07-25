@@ -73,10 +73,12 @@
   display: flex;
   align-items: center;
   margin: 20px 0;
+  cursor: pointer;
 }
 
 .sidebar__profile img {
   width: 30px;
+  height: 30px;
   border-radius: 20px;
 }
 

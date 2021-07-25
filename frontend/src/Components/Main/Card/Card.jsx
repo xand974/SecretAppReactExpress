@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
@@ -13,6 +13,16 @@ export default function Card({
   username,
   defaultImage,
 }) {
+  const [isLiked, setIsLiked] = useState(false);
+  var HandleLikeClick = () => {
+    console.log(isLiked);
+    setIsLiked(!isLiked);
+  };
+  const [isFav, setIsFav] = useState(false);
+
+  var HandleFavClick = () => {
+    setIsFav(!isFav);
+  };
   return (
     <div className="card">
       <div className="card__header">
@@ -37,8 +47,16 @@ export default function Card({
       </div>
       <div className="card__footer">
         <div className="card__footer__logo">
-          <ThumbUp className="thumb" />
-          <Favorite className="fav" />
+          <ThumbUp
+            className="thumb"
+            style={{ background: isLiked ? "rgb(126, 126, 253)" : "#a8a8a8" }}
+            onClick={HandleLikeClick}
+          />
+          <Favorite
+            className="fav"
+            style={{ background: isFav ? "rgb(250, 82, 82)" : "#a8a8a8" }}
+            onClick={HandleFavClick}
+          />
           <span className="post__liked">{likes} People like it</span>
         </div>
         <div className="post__comment">

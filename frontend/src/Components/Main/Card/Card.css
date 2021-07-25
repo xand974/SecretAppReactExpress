@@ -86,10 +86,13 @@
   color: black;
   border-radius: 20px;
   padding: 5px;
-  transition: all 1s ease-in;
+  transition: all 0.3s ease-in;
 }
 .thumb:hover {
-  background: rgb(37, 37, 161);
+  background: rgb(126, 126, 253);
+  color: white;
+}
+.thum:focus-visible {
   color: white;
 }
 

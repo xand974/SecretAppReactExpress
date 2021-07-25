@@ -13,6 +13,7 @@
 
 .online__image {
   width: 30px;
+  height: 30px;
   border-radius: 20px;
   object-fit: cover;
 }

@@ -17,11 +17,14 @@ export default function Card({
   var HandleLikeClick = () => {
     console.log(isLiked);
     setIsLiked(!isLiked);
+    setLikesCount(++likes);
   };
   const [isFav, setIsFav] = useState(false);
+  var [likesCount, setLikesCount] = useState(likes);
 
   var HandleFavClick = () => {
     setIsFav(!isFav);
+    setLikesCount(++likes);
   };
   return (
     <div className="card">
@@ -57,7 +60,9 @@ export default function Card({
             style={{ background: isFav ? "rgb(250, 82, 82)" : "#a8a8a8" }}
             onClick={HandleFavClick}
           />
-          <span className="post__liked">{likes} People like it</span>
+          <span className="post__liked">
+            {isLiked || isFav ? ++likesCount : likesCount} People like it
+          </span>
         </div>
         <div className="post__comment">
           <p>{comments} comments</p>

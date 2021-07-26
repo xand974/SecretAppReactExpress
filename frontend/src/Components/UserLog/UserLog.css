@@ -1,0 +1,41 @@
+.log__container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.login__form,
+.register__form {
+  margin: 30px;
+  padding: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.418);
+  width: 500px;
+  height: 300px;
+}
+
+.log__container h2 {
+  font-family: sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.log__container input {
+  border: none;
+  border-bottom: 1px solid #a3a3a3;
+  background: none;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+::placeholder {
+  color: #a3a3a3;
+}

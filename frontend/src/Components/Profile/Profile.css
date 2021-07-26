@@ -1,0 +1,38 @@
+.background__user {
+  height: 300px;
+  position: relative;
+}
+
+.background__user__image {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.profile__feed__container {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  margin-top: 50px;
+}
+
+.profile__picture {
+  height: 200px;
+  width: 200px;
+  border-radius: 140px;
+  position: absolute;
+  left: 50%;
+  bottom: -60%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #f7fff7;
+}
+.profile__feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.name__user__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}

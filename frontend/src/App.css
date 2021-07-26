@@ -10,3 +10,8 @@
 body {
   background-color: #f7fff7;
 }
+
+.profile {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}

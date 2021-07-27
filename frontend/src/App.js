@@ -26,6 +26,13 @@ function App() {
               <Profile />
             </div>
           </Route>
+          <Route exact path="/profile/:username">
+            <Header />
+            <div className="profile">
+              <Sidebar />
+              <Profile />
+            </div>
+          </Route>
         </Switch>
       </Router>
     </div>

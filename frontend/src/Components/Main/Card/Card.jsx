@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";

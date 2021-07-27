@@ -1,6 +1,10 @@
 import React from "react";
 import "./Title.css";
-
+import { Link } from "react-router-dom";
 export default function Title() {
-  return <h1 className="title">StScrt 🔒 </h1>;
+  return (
+    <Link style={{ textDecoration: "none", color: "black" }} to="/home">
+      <h1 className="title">StScrt 🔒 </h1>
+    </Link>
+  );
 }

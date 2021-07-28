@@ -112,4 +112,16 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
+  get_timeline_user: async (req, res) => {
+    try {
+      const userFound = await User.findOne({ username: req.params.username });
+      if (!userFound) return res.status(404).send("Utilisateur non trouvé");
+
+      const userPosts = await Note.find({ userId: userFound.id });
+
+      return res.status(200).send(userPosts);
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  },
 };

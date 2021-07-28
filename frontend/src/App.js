@@ -5,7 +5,6 @@ import Main from "./Components/Main/Main";
 import UserLog from "./Components/UserLog/UserLog";
 import Profile from "./Components/Profile/Profile";
 import Sidebar from "./Components/Main/Sidebar/Sidebar";
-import InfoUser from "./Components/Profile/InfoUser/InfoUser";
 
 function App() {
   return (
@@ -23,14 +22,14 @@ function App() {
             <Header />
             <div className="profile">
               <Sidebar />
-              <Profile />
+              <Profile username="xand" />
             </div>
           </Route>
           <Route exact path="/profile/:username">
             <Header />
             <div className="profile">
               <Sidebar />
-              <Profile />
+              <Profile username="xand974" />
             </div>
           </Route>
         </Switch>

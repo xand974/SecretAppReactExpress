@@ -13,5 +13,6 @@ router.patch("/like/:id", cookie.authorize, home_controller.like_note_patch);
 
 router.get("/:id", cookie.authorize, home_controller.get_note_get);
 router.get("/timenote/all", home_controller.get_timelinenote_get);
+router.get("/timenote/:username", home_controller.get_timeline_user);
 
 module.exports = router;

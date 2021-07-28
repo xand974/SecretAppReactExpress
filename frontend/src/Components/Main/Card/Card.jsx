@@ -4,6 +4,7 @@ import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 import * as timeago from "timeago.js";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Card({ post }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -27,11 +28,14 @@ export default function Card({ post }) {
     <div className="card">
       <div className="card__header">
         <div className="card__profile">
-          <img
-            src={user.profilePicture || defaultPic}
-            className="card__profile__image"
-            alt="profile"
-          />
+          <Link to={`/profile/${user.username}`}>
+            <img
+              src={user.profilePicture || defaultPic}
+              className="card__profile__image"
+              alt="profile"
+            />
+          </Link>
+
           <span>{user.username}</span>
           <small>Updated {timeago.format(post.date)}</small>
         </div>

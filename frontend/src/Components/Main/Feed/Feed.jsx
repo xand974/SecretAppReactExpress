@@ -18,16 +18,7 @@ export default function Feed() {
       <PostFeed />
       <div className="feed__cards">
         {posts.map((post) => {
-          return (
-            <Card
-              key={post.id}
-              post={post}
-              // username={user.username}
-              // defaultImage={
-              //   User.filter((user) => user.id === post.userId)[0].profilePic
-              // }
-            />
-          );
+          return <Card key={post.id} post={post} />;
         })}
       </div>
     </div>

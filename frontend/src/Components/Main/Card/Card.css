@@ -92,9 +92,6 @@
   background: rgb(126, 126, 253);
   color: white;
 }
-.thum:focus-visible {
-  color: white;
-}
 
 .fav:hover {
   background: rgb(250, 82, 82);

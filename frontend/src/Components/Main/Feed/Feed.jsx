@@ -27,6 +27,7 @@ export default function Feed() {
               date={post.date}
               postImage={post.postImage}
               likes={post.likes.length}
+              content={post.content}
               // username={
               //   User.filter((user) => user.id === post.userId)[0].username
               // }

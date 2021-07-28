@@ -13,24 +13,21 @@ export default function Card({
   defaultImage,
 }) {
   const [isLiked, setIsLiked] = useState(false);
-  var HandleLikeClick = () => {
-    console.log(isLiked);
-    setIsLiked(!isLiked);
-    setLikesCount(++likes);
-  };
   const [isFav, setIsFav] = useState(false);
   var [likesCount, setLikesCount] = useState(likes);
 
-  var HandleFavClick = () => {
+  var HandleLikeClick = () => {
+    setIsLiked(!isLiked);
     setIsFav(!isFav);
-    setLikesCount(++likes);
+    setLikesCount(isLiked || isFav ? likesCount - 1 : likesCount + 1);
   };
+
   return (
     <div className="card">
       <div className="card__header">
         <div className="card__profile">
           <img
-            src={defaultImage == null ? defaultPic : defaultImage}
+            src={defaultImage || defaultPic}
             className="card__profile__image"
             alt="profile"
           />
@@ -44,7 +41,15 @@ export default function Card({
       <div className="card__body">
         <p>{content}</p>
         <div>
-          <img src={postImage} className="card__content__image" alt="profile" />
+          {postImage == null ? (
+            <div />
+          ) : (
+            <img
+              src={postImage}
+              className="card__content__image"
+              alt="content "
+            />
+          )}
         </div>
       </div>
       <div className="card__footer">
@@ -56,12 +61,14 @@ export default function Card({
           />
           <Favorite
             className="fav"
-            style={{ background: isFav ? "rgb(250, 82, 82)" : "#a8a8a8" }}
-            onClick={HandleFavClick}
+            tabIndex="1"
+            style={{
+              background: isFav ? "rgb(250, 82, 82)" : "#a8a8a8",
+              outline: "none",
+            }}
+            onClick={HandleLikeClick}
           />
-          <span className="post__liked">
-            {isLiked || isFav ? ++likesCount : likesCount} People like it
-          </span>
+          <span className="post__liked">{likesCount} People like it</span>
         </div>
         <div className="post__comment">
           <p>{comments} comments</p>

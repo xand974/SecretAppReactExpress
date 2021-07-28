@@ -1,4 +1,4 @@
-import React from "react";
+import Button from "../Button/Button";
 
 export default function Register() {
   return (
@@ -12,7 +12,12 @@ export default function Register() {
       <div className="form">
         <form>
           <input type="text" placeholder="username" />
-          <input type="password" placeholder="password" />
+          <input
+            className="input__password"
+            type="password"
+            placeholder="password"
+          />
+          <Button Log="Register" />
         </form>
       </div>
     </div>

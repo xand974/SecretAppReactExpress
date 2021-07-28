@@ -1,5 +1,4 @@
 import Button from "../Button/Button";
-
 export default function Register() {
   return (
     <div className="register__form">

@@ -4,8 +4,8 @@ export default function Dropdown({ listLinks }) {
   return (
     <div className="dropdown__nav">
       <ul>
-        {listLinks.map((list) => {
-          return <li>{list}</li>;
+        {listLinks.map((list, index) => {
+          return <li key={index}>{list}</li>;
         })}
       </ul>
     </div>

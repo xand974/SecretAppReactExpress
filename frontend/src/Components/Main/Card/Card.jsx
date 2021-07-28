@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
+import * as timeago from "timeago.js";
+import Axios from "axios";
 
-export default function Card({
-  postImage,
-  content,
-  likes,
-  date,
-  comments,
-  username,
-  defaultImage,
-}) {
+export default function Card({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isFav, setIsFav] = useState(false);
-  var [likesCount, setLikesCount] = useState(likes);
+  var [likesCount, setLikesCount] = useState(post.likes.length);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    Axios.get(`api/user/${post.userId}`).then((res) => {
+      setUser(res.data);
+    });
+  }, [post.userId]);
 
   var HandleLikeClick = () => {
     setIsLiked(!isLiked);
@@ -27,25 +28,25 @@ export default function Card({
       <div className="card__header">
         <div className="card__profile">
           <img
-            src={defaultImage || defaultPic}
+            src={user.profilePicture || defaultPic}
             className="card__profile__image"
             alt="profile"
           />
-          <span>{username}</span>
-          <small>Updated {date}</small>
+          <span>{user.username}</span>
+          <small>Updated {timeago.format(post.date)}</small>
         </div>
         <div className="card__more">
           <MoreHoriz className="more" />
         </div>
       </div>
       <div className="card__body">
-        <p>{content}</p>
+        <p>{post.content}</p>
         <div>
-          {postImage == null ? (
+          {post.postImage == null ? (
             <div />
           ) : (
             <img
-              src={postImage}
+              src={post.postImage}
               className="card__content__image"
               alt="content "
             />
@@ -71,7 +72,7 @@ export default function Card({
           <span className="post__liked">{likesCount} People like it</span>
         </div>
         <div className="post__comment">
-          <p>{comments} comments</p>
+          <p>{post.comments} comments</p>
         </div>
       </div>
     </div>

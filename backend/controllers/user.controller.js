@@ -140,11 +140,15 @@ module.exports = {
   },
   user_get: async (req, res) => {
     const { id } = req.params;
-    const userFound = await User.findOne({ _id: id });
-    !userFound && res.status(404).send("aucun utilisateur trouvé");
+    try {
+      const userFound = await User.findOne({ _id: id });
+      !userFound && res.status(404).send("aucun utilisateur trouvé");
 
-    const { password, updatedAt, ...other } = userFound._doc;
-    return res.status(200).send(other);
+      const { password, updatedAt, ...other } = userFound._doc;
+      return res.status(200).send(other);
+    } catch (err) {
+      return res.status(500).send(err);
+    }
   },
   user_update: async (req, res) => {
     const { userId } = req.session;

@@ -9,9 +9,11 @@ const morgan = require("morgan");
 const home_router = require("./routes/home.route");
 const Error404 = require("./middlewares/page.not.found");
 const user_router = require("./routes/user.route");
+const cors = require("cors");
 
 app.use(express.json());
 app.use(helmet());
+app.use(cors());
 app.use(morgan("common"));
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/home", home_router);

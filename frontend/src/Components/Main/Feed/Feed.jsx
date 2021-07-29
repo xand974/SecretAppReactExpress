@@ -4,14 +4,22 @@ import Card from "../Card/Card";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 
-export default function Feed() {
+const api = Axios.create({ baseURL: "http://localhost:3001/api" });
+
+export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    Axios.get("api/home/").then((res) => {
-      return setPosts(res.data);
-    });
-  }, []);
+    username
+      ? api.get(`/home/timenote/${username}`).then((res) => {
+          console.log(res.data);
+          setPosts(res.data);
+        })
+      : api.get("/home/").then((res) => {
+          console.log(res);
+          return setPosts(res.data);
+        });
+  }, [username]);
 
   return (
     <div className="feed__container">

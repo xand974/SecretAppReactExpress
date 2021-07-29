@@ -5,7 +5,6 @@ import Main from "./Components/Main/Main";
 import UserLog from "./Components/UserLog/UserLog";
 import Profile from "./Components/Profile/Profile";
 import Sidebar from "./Components/Main/Sidebar/Sidebar";
-
 function App() {
   return (
     <div className="App">
@@ -29,7 +28,7 @@ function App() {
             <Header />
             <div className="profile">
               <Sidebar />
-              <Profile username="xand974" />
+              <Profile />
             </div>
           </Route>
         </Switch>

@@ -3,13 +3,13 @@ const authorize = (req, res, next) => {
     next();
   } else {
     //res.send("vous devez vous connecter");
-    res.redirect("/login");
+    res.status(302).send("vous devez vous connecter");
   }
 };
 const redirectHome = (req, res, next) => {
   if (req.session.userId) {
     console.log("vous êtes déjà connectés");
-    res.redirect("/home");
+    res.status(302).send("vous êtes déjà connectés");
   } else {
     next();
   }

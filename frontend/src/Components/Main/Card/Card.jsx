@@ -3,8 +3,8 @@ import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 import * as timeago from "timeago.js";
-import Axios from "axios";
 import { Link } from "react-router-dom";
+import api from "../../../config/axios";
 
 export default function Card({ post }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -13,7 +13,7 @@ export default function Card({ post }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    Axios.get(`api/user/${post.userId}`).then((res) => {
+    api.get(`/user?userId=${post.userId}`).then((res) => {
       setUser(res.data);
     });
   }, [post.userId]);

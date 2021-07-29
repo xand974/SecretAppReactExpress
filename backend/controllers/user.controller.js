@@ -139,9 +139,12 @@ module.exports = {
     }
   },
   user_get: async (req, res) => {
-    const { id } = req.params;
+    const userId = req.query.userId;
+    const username = req.query.username;
     try {
-      const userFound = await User.findOne({ _id: id });
+      const userFound = userId
+        ? await User.findById(userId)
+        : await User.findOne({ username });
       !userFound && res.status(404).send("aucun utilisateur trouvé");
 
       const { password, updatedAt, ...other } = userFound._doc;

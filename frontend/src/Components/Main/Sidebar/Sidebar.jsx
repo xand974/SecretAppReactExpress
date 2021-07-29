@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import Profile from "../Profile/Profile";
+import Profile from "../SideBarProfile/SideBarProfile";
 import { Bookmark, Chat, Group, VideoCall, Wifi } from "@material-ui/icons";
 import { User } from "../../../Data/Data";
 export default function Sidebar() {

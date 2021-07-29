@@ -27,6 +27,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    backgroundPicture: {
+      type: String,
+      default: "",
+    },
     followers: {
       type: Array,
       default: [],
@@ -40,6 +44,14 @@ const userSchema = new Schema(
       default: false,
     },
     description: String,
+    city: String,
+    from: String,
+    relationship: {
+      type: String,
+      EnCouple: "en couple",
+      Celibataire: "célibataire",
+      Marié: "Marié",
+    },
   },
 
   //date de la création etc ..

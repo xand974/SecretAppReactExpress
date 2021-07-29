@@ -4,7 +4,7 @@ export default function Register() {
     e.preventDefault();
   };
   return (
-    <div className="register__form">
+    <div className="log__form">
       <div>
         <h2>R E G I S T E R</h2>
       </div>

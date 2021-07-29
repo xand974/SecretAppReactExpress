@@ -11,7 +11,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login__form">
+    <div className="log__form">
       <div>
         <h2>L O G I N</h2>
       </div>

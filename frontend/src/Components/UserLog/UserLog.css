@@ -10,8 +10,7 @@
   margin-top: 10%;
 }
 
-.login__form,
-.register__form {
+.log__form {
   margin: 30px;
   padding: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.418);
@@ -26,6 +25,12 @@
   margin-bottom: 10px;
   text-align: center;
   padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.log__form:hover h2 {
+  background: black;
+  color: white;
 }
 
 .log__container input {

@@ -3,11 +3,6 @@ import "./InfoUser.css";
 import OnlineFriend from "../../Main/Contact/OnlineFriend/OnlineFriend";
 
 export default function InfoUser({ user }) {
-  console.log(
-    user.following.map((friend) => {
-      return friend.username;
-    })
-  );
   return (
     <div className="profile__infos__user">
       <div className="profile__infos">
@@ -28,9 +23,9 @@ export default function InfoUser({ user }) {
       <div className="profile__friends">
         <h5>User Friends</h5>
         <div>
-          {user.following.map((follow) => {
+          {/* {user.following.map((follow) => {
             return <OnlineFriend key={follow.id} username={follow.username} />;
-          })}
+          })} */}
         </div>
       </div>
     </div>

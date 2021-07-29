@@ -24,7 +24,7 @@ function App() {
               <Profile username="xand" />
             </div>
           </Route>
-          <Route exact path={"/profile/:username"}>
+          <Route exact path="/profile/:username">
             <Header />
             <div className="profile">
               <Sidebar />

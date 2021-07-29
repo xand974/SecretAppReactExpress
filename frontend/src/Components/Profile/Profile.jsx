@@ -4,9 +4,12 @@ import Feed from "../Main/Feed/Feed";
 import InfoUser from "../Profile/InfoUser/InfoUser";
 import { useEffect, useState } from "react";
 import api from "../../config/axios";
+import { useParams } from "react-router-dom";
 
-export default function Profile({ username, userId }) {
+export default function Profile({ userId }) {
   const [user, setUser] = useState({});
+  const { username } = useParams();
+
   useEffect(() => {
     username
       ? api.get(`/user?username=${username}`).then((res) => {
@@ -35,7 +38,7 @@ export default function Profile({ username, userId }) {
         <p className="bio">{user.description || "no description"}</p>
       </div>
       <div className="profile__feed__container">
-        <Feed key={user.id} username={user.username} />
+        <Feed key={user.id} username={username} />
         <InfoUser user={user} key={user.id} />
       </div>
     </div>

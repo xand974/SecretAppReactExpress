@@ -1,16 +1,16 @@
 import Button from "../Button/Button";
 export default function Register() {
+  var HandleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="register__form">
       <div>
-        <h2>
-          {/* R <br /> E <br /> G <br /> I <br /> S <br /> T <br /> E <br /> R */}
-          R E G I S T E R
-        </h2>
+        <h2>R E G I S T E R</h2>
       </div>
       <div className="form">
-        <form>
-          <input type="text" placeholder="username" />
+        <form onSubmit={HandleSubmit}>
+          <input type="email" placeholder="username" />
           <input
             className="input__password"
             type="password"

@@ -5,5 +5,7 @@ export const loginCall = async (userData, dispatch) => {
   try {
     const res = await Api.post("/user/login", userData);
     dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-  } catch (err) {}
+  } catch (err) {
+    dispatch({ type: "LOGIN_FAILURE", payload: err });
+  }
 };

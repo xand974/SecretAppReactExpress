@@ -1,13 +1,23 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import Button from "../Button/Button";
+import { loginCall } from "../../../apiCalls";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Login() {
-  const email = useRef();
+  const username = useRef();
   const password = useRef();
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
   var HandleSubmit = (e) => {
     e.preventDefault();
-    console.log(email.current.value);
+    loginCall(
+      {
+        username: username.current.value,
+        password: password.current.value,
+      },
+      dispatch
+    );
+    console.log(user);
   };
 
   return (
@@ -17,7 +27,12 @@ export default function Login() {
       </div>
       <div className="form" onSubmit={HandleSubmit}>
         <form>
-          <input type="email" required ref={email} placeholder="username" />
+          <input
+            type="username"
+            required
+            ref={username}
+            placeholder="username"
+          />
           <input
             ref={password}
             required

@@ -2,9 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  register_get: (req, res) => {
-    res.json("création de compte");
-  },
   register_post: async (req, res) => {
     try {
       const { username, password } = req.body;
@@ -25,9 +22,6 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
-  login_get: (req, res) => {
-    res.json("connectez vous à votre compte sur cette page");
-  },
   login_post: async (req, res) => {
     try {
       const { username, password } = req.body;
@@ -40,9 +34,7 @@ module.exports = {
       if (isMatched) {
         req.session.userId = userFound._id;
         // req.user.isAdmin = false;
-        return res
-          .status(200)
-          .send("vous êtes connectés : id:" + req.session.userId);
+        return res.status(200).send(userFound);
       } else {
         return res.status(401).send("mot de passe ou identifiant incorrecte");
       }

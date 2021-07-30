@@ -2,6 +2,8 @@ import { useContext, useRef } from "react";
 import Button from "../Button/Button";
 import { loginCall } from "../../../apiCalls";
 import { AuthContext } from "../../../context/AuthContext";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+import "./Login.css";
 
 export default function Login() {
   const username = useRef();
@@ -40,7 +42,11 @@ export default function Login() {
             type="password"
             placeholder="password"
           />
-          <Button Log={isFetching ? "wait" : "Login"} />
+          <Button
+            Log={
+              isFetching ? <AutorenewIcon className="anim_loading" /> : "Login"
+            }
+          />
         </form>
       </div>
     </div>

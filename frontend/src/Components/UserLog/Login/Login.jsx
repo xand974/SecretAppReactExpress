@@ -40,7 +40,7 @@ export default function Login() {
             type="password"
             placeholder="password"
           />
-          <Button Log="Login" />
+          <Button Log={isFetching ? "wait" : "Login"} />
         </form>
       </div>
     </div>

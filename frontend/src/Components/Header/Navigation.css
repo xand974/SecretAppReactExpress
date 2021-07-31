@@ -28,3 +28,13 @@
   margin: 10px;
   cursor: pointer;
 }
+
+.navigation__pic {
+  margin-left: 10px;
+}
+
+.navigation__pic img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+}

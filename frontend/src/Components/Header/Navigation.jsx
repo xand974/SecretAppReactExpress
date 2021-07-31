@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
 import Dropdown from "./Dropdown";
-import { Person, Notifications, Message } from "@material-ui/icons";
-export default function Navigation() {
+import { Notifications, Message } from "@material-ui/icons";
+import profilePic from "../../Images/default-user-image.png";
+export default function Navigation({ user }) {
   var postLinks = [
     "Un post",
     "Un vis sur le site ",
@@ -11,6 +12,7 @@ export default function Navigation() {
   ];
   var chatLinks = ["Commencer", "Comment ça fonctionne ?"];
   var accountLinks = ["Gérer votre compte", "Déconnexion"];
+
   return (
     <div className="nav__li">
       <Link style={{ textDecoration: "none" }} to="/">
@@ -39,18 +41,19 @@ export default function Navigation() {
       </Link>
 
       <div className="drop">
-        <Link
-          className="list"
-          style={{ textDecoration: "none" }}
-          to="/profile/:id"
-        >
-          <Person />
-        </Link>
         <Dropdown listLinks={accountLinks} />
       </div>
       <div className="icon__container">
         <Notifications />
         <Message />
+      </div>
+      <div className="navigation__pic">
+        <Link to={`/profile/:${user._id}`}>
+          <img
+            src={profilePic || user.profilePicture}
+            alt="identity of the user"
+          />
+        </Link>
       </div>
     </div>
   );

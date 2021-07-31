@@ -15,7 +15,7 @@
   padding: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.418);
   width: 500px;
-  height: 300px;
+  height: 350px;
 }
 
 .log__container h2 {
@@ -45,4 +45,24 @@
 
 ::placeholder {
   color: #a3a3a3;
+}
+.redirect__container {
+  display: flex;
+  justify-content: center;
+}
+
+.redirect__container button {
+  padding: 10px 55px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.redirect__container button:hover {
+  box-shadow: 0 0 10px black;
+  background: none;
+  color: black;
 }

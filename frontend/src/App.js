@@ -5,17 +5,25 @@ import Main from "./Components/Main/Main";
 import UserLog from "./Components/UserLog/UserLog";
 import Profile from "./Components/Profile/Profile";
 import Sidebar from "./Components/Main/Sidebar/Sidebar";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 function App() {
+  const { user } = useContext(AuthContext);
+
+  console.log("user", user);
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/home" exact>
-            <Header />
-            <Main />
-          </Route>
           <Route path="/" exact>
-            <UserLog />
+            {user ? (
+              <UserLog />
+            ) : (
+              <>
+                <Header />
+                <Main />
+              </>
+            )}
           </Route>
           <Route path="/profile" exact>
             <Header />

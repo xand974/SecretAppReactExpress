@@ -1,8 +1,26 @@
+import { useRef } from "react";
 import Button from "../Button/Button";
+import Api from "../../../config/axios";
+import { useHistory } from "react-router";
+
 export default function Register() {
-  var HandleSubmit = (e) => {
+  const history = useHistory();
+
+  var HandleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await Api.post("/user/register", {
+        username: username.current.value,
+        password: password.current.value,
+      });
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const username = useRef();
+  const password = useRef();
   return (
     <div className="log__form">
       <div>
@@ -10,8 +28,9 @@ export default function Register() {
       </div>
       <div className="form">
         <form onSubmit={HandleSubmit}>
-          <input type="email" placeholder="username" />
+          <input ref={username} type="text" placeholder="username" />
           <input
+            ref={password}
             className="input__password"
             type="password"
             placeholder="password"

@@ -26,18 +26,31 @@ function App() {
             )}
           </Route>
           <Route path="/profile" exact>
-            <Header />
-            <div className="profile">
-              <Sidebar />
-              <Profile username="xand" />
-            </div>
+            {user ? (
+              <>
+                {" "}
+                <Header />
+                <div className="profile">
+                  <Sidebar />
+                  <Profile username="xand" />
+                </div>{" "}
+              </>
+            ) : (
+              <UserLog />
+            )}
           </Route>
           <Route exact path="/profile/:username">
-            <Header />
-            <div className="profile">
-              <Sidebar />
-              <Profile username="xand974" />
-            </div>
+            {user ? (
+              <>
+                <Header />
+                <div className="profile">
+                  <Sidebar />
+                  <Profile username="xand974" />
+                </div>
+              </>
+            ) : (
+              <UserLog />
+            )}
           </Route>
         </Switch>
       </Router>

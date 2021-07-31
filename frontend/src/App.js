@@ -42,7 +42,7 @@ function App() {
                 <Header />
                 <div className="profile">
                   <Sidebar />
-                  <Profile username="xand" />
+                  <Profile userId={user._id} />
                 </div>{" "}
               </>
             ) : (
@@ -55,7 +55,7 @@ function App() {
                 <Header />
                 <div className="profile">
                   <Sidebar />
-                  <Profile username="xand974" />
+                  <Profile />
                 </div>
               </>
             ) : (

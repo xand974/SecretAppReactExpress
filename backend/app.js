@@ -10,6 +10,32 @@ const home_router = require("./routes/home.route");
 const Error404 = require("./middlewares/page.not.found");
 const user_router = require("./routes/user.route");
 const cors = require("cors");
+const multer = require("multer");
+
+//voir dans le navigateur le dossier avec les images
+const path = require("path");
+
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/uploadImages");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+var upload = multer({ storage });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  try {
+    return res.status(200).send("file uploaded successfully");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//à cette url , voir les images qui se trouvent dedans
+//http://localhost:3001/images/DESCRIPTION4 (2).PNG
+app.use("/images", express.static(path.join(__dirname, "public/uploadImages")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

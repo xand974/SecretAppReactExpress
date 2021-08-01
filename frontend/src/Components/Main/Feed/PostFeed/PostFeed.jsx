@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import imageToImport from "../../../../Images/default-user-image.png";
 import { Album, EmojiEmotions, LocationCity } from "@material-ui/icons";
 import "./PostFeed.css";
+import AuthContext from "../../../../context/AuthContext";
+
 export default function PostFeed({ image }) {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="feed__post">
       <div className="feed__top">

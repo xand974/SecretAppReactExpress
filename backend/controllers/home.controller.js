@@ -21,9 +21,6 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  create_notes_get: async (req, res) => {
-    res.send("créer un post ici");
-  },
   create_notes_post: async (req, res) => {
     try {
       const id = req.session.userId;

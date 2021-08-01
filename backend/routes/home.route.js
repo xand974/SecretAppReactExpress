@@ -4,7 +4,6 @@ const home_controller = require("../controllers/home.controller");
 const cookie = require("../middlewares/cookie");
 
 router.get("/", home_controller.all_notes_get);
-router.get("/create", cookie.authorize, home_controller.create_notes_get);
 router.post("/create", cookie.authorize, home_controller.create_notes_post);
 
 router.patch("/:id", home_controller.update_note_patch);

@@ -12,6 +12,10 @@ const noteSchema = new Schema({
     type: Array,
     default: [],
   },
+  notePicture: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = new mongoose.model("Note", noteSchema);

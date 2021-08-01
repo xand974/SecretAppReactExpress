@@ -48,7 +48,7 @@ export default function Navigation({ user }) {
         <Message />
       </div>
       <div className="navigation__pic">
-        <Link to={`/profile`}>
+        <Link to={`/profile/${user.username}`}>
           <img
             src={profilePic || user.profilePicture}
             alt="identity of the user"

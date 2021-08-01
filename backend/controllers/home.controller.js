@@ -99,9 +99,9 @@ module.exports = {
   },
   get_timelinenote_get: async (req, res) => {
     try {
-      const userFound = await User.findById(req.session.userId);
+      // const userFound = await User.findById(req.params.id);
+      const userFound = await User.findById(req.params.id);
       const userNotes = await Note.find({ userId: userFound._id });
-
       const friendPost = await Promise.all(
         userFound.following.map((friend) => {
           return Note.find({ userId: friend._id });
@@ -109,7 +109,7 @@ module.exports = {
       );
       return res.status(200).send(userNotes.concat(...friendPost));
     } catch (err) {
-      return res.status(500).send(err);
+      return res.status(500).json(err);
     }
   },
   get_timeline_user: async (req, res) => {

@@ -1,27 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import defaultPic from "../../../Images/default-user-image.png";
 import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 import * as timeago from "timeago.js";
 import { Link } from "react-router-dom";
 import api from "../../../config/axios";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Card({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isFav, setIsFav] = useState(false);
   var [likesCount, setLikesCount] = useState(post.likes.length);
   const [user, setUser] = useState({});
-
+  const { user: currentUser } = useContext(AuthContext);
   useEffect(() => {
     api.get(`/user?userId=${post.userId}`).then((res) => {
       setUser(res.data);
     });
   }, [post.userId]);
 
-  var HandleLikeClick = () => {
+  //check si le user a déjà like un post ou pas
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
+
+  var HandleLikeClick = async () => {
     setIsLiked(!isLiked);
     setIsFav(!isFav);
     setLikesCount(isLiked || isFav ? likesCount - 1 : likesCount + 1);
+    try {
+      const res = await api.patch("/home/like/" + post._id, {
+        userId: currentUser._id,
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -12,10 +12,11 @@ const user_router = require("./routes/user.route");
 const cors = require("cors");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors());
 app.use(morgan("common"));
-app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/home", home_router);
 app.use("/api/user", user_router);
 

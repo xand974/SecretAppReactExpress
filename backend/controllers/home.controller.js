@@ -77,15 +77,16 @@ module.exports = {
     const noteFound = await Note.findById(req.params.id);
     !noteFound && res.status(404).send("aucune note trouvée");
     try {
-      if (!noteFound.likes.includes(req.session.userId.toString())) {
-        await noteFound.updateOne({ $push: { likes: req.session.userId } });
+      const { userId } = req.body;
+      if (!noteFound.likes.includes(userId)) {
+        await noteFound.updateOne({ $push: { likes: userId } });
         return res.status(200).send("post liked");
       } else {
-        await noteFound.updateOne({ $pull: { likes: req.session.userId } });
+        await noteFound.updateOne({ $pull: { likes: userId } });
         return res.status(200).send("vous avez disliked le post");
       }
     } catch (err) {
-      return res.status(500).send(err);
+      return res.status(500).json("une erreur : " + err);
     }
   },
   get_note_get: async (req, res) => {

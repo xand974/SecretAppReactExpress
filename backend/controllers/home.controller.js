@@ -23,18 +23,13 @@ module.exports = {
   },
   create_notes_post: async (req, res) => {
     try {
-      const id = req.session.userId;
-      const userFound = await User.findOne({ _id: id });
-
       const { title, content } = req.body;
       var note = new Note({
         title,
         content,
-        userId: userFound._id,
       });
 
       await note.save();
-      await User.findByIdAndUpdate({ _id: id }, { $push: { Posts: note } });
       return res.json(note);
     } catch (err) {
       return res.status(500).json(err);

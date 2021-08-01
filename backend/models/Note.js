@@ -14,7 +14,7 @@ const noteSchema = new Schema({
   },
   notePicture: {
     type: String,
-    default: "",
+    default: null,
   },
 });
 

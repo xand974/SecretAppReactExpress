@@ -5,22 +5,42 @@ import "./PostFeed.css";
 import { AuthContext } from "../../../../context/AuthContext";
 import Api from "../../../../config/axios";
 
-export default function PostFeed({ image }) {
+export default function PostFeed() {
   const { user } = useContext(AuthContext);
   const content = useRef();
   const [file, setFile] = useState(null);
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const newPost = {
-      userId: user._id,
-      content: content.current.value,
-    };
+
+    var newPost;
+
+    if (file) {
+      const fileName = file.size + file.name;
+      var data = new FormData();
+      //envoie fichier
+      data.append("file", file);
+
+      //envoie nom du fichier
+      data.append("name", fileName);
+      newPost = {
+        userId: user._id,
+        content: content.current.value,
+        notePicture: fileName,
+      };
+
+      try {
+        await Api.post("/upload", data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     try {
-      const res = await Api.post("/home/create", newPost);
+      await Api.post("/home/create", newPost);
     } catch (err) {
       console.log(err);
     }
+    content.current.value = "";
   };
 
   return (

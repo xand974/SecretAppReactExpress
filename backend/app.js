@@ -12,15 +12,17 @@ const user_router = require("./routes/user.route");
 const cors = require("cors");
 const multer = require("multer");
 
+app.use(cors());
 //voir dans le navigateur le dossier avec les images
 const path = require("path");
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/uploadImages");
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name);
+    console.log(file.size);
+    cb(null, file.size + file.originalname);
   },
 });
 
@@ -40,7 +42,7 @@ app.use("/images", express.static(path.join(__dirname, "public/uploadImages")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors());
+
 app.use(morgan("common"));
 
 app.use("/api/home", home_router);

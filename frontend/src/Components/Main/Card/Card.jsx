@@ -18,6 +18,8 @@ export default function Card({ post }) {
       setUser(res.data);
     });
   }, [post.userId]);
+  const IF = process.env.REACT_APP_IMAGES_FOLDER;
+  console.log("image folder : ", IF);
 
   //check si le user a déjà like un post ou pas
   useEffect(() => {
@@ -60,11 +62,11 @@ export default function Card({ post }) {
       <div className="card__body">
         <p>{post.content}</p>
         <div>
-          {post.postImage == null ? (
+          {post.notePicture == null ? (
             <div />
           ) : (
             <img
-              src={post.postImage}
+              src={IF + post.notePicture}
               className="card__content__image"
               alt="content "
             />

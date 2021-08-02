@@ -15,6 +15,7 @@ export default function Feed({ username }) {
           setPosts(res.data);
         })
       : api.get("/home/timenote/all/" + user._id).then((res) => {
+          console.log(res.data);
           return setPosts(res.data);
         });
   }, [username, user]);

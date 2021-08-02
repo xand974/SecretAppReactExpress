@@ -23,10 +23,11 @@ module.exports = {
   },
   create_notes_post: async (req, res) => {
     try {
-      const { title, content } = req.body;
+      const { content, userId, notePicture } = req.body;
       var note = new Note({
-        title,
         content,
+        userId,
+        notePicture,
       });
 
       await note.save();

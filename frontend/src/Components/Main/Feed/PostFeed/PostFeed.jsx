@@ -16,7 +16,7 @@ export default function PostFeed() {
     var newPost;
 
     if (file) {
-      const fileName = file.size + file.name;
+      const fileName = file.name;
       var data = new FormData();
       //envoie fichier
       data.append("file", file);

@@ -4,6 +4,7 @@ import Card from "../Card/Card";
 import { useContext, useEffect, useState } from "react";
 import api from "../../../config/axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { DateRange } from "@material-ui/icons";
 
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
@@ -15,8 +16,11 @@ export default function Feed({ username }) {
           setPosts(res.data);
         })
       : api.get("/home/timenote/all/" + user._id).then((res) => {
-          console.log(res.data);
-          return setPosts(res.data);
+          return setPosts(
+            res.data.sort((post1, post2) => {
+              return new Date(post2.date) - new Date(post1.date);
+            })
+          );
         });
   }, [username, user]);
 

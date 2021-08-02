@@ -37,6 +37,7 @@ export default function PostFeed() {
     }
     try {
       await Api.post("/home/create", newPost);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

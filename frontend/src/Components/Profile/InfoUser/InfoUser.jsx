@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./InfoUser.css";
 import OnlineFriend from "../../Main/Contact/OnlineFriend/OnlineFriend";
-
+import Api from "../../../config/axios";
 export default function InfoUser({ user }) {
+  const [friendsUser, setFriendsUser] = useState([]);
+  useEffect(() => {
+    var fetchFriends = async () => {
+      try {
+        const res = await Api.get(`/user/${user._id}/friends`);
+        console.log("friendsUser : ", res.data);
+        return setFriendsUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchFriends();
+  }, [user._id]);
   return (
     <div className="profile__infos__user">
       <div className="profile__infos">
@@ -23,9 +36,9 @@ export default function InfoUser({ user }) {
       <div className="profile__friends">
         <h5>User Friends</h5>
         <div>
-          {/* {user.following.map((follow) => {
-            return <OnlineFriend key={follow.id} username={follow.username} />;
-          })} */}
+          {friendsUser.map((follow, index) => {
+            return <OnlineFriend key={follow._id} username={follow.username} />;
+          })}
         </div>
       </div>
     </div>

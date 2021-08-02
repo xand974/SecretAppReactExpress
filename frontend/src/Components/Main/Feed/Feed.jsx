@@ -4,7 +4,6 @@ import Card from "../Card/Card";
 import { useContext, useEffect, useState } from "react";
 import api from "../../../config/axios";
 import { AuthContext } from "../../../context/AuthContext";
-import { DateRange } from "@material-ui/icons";
 
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);

@@ -183,4 +183,13 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
+
+  friend_user_get: async (req, res) => {
+    try {
+      const friendsUser = await User.findById(req.params.id);
+      return res.status(200).send(friendsUser.following);
+    } catch (err) {
+      return res.status(500).json("something went wrong : " + err);
+    }
+  },
 };

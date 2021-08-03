@@ -25,7 +25,7 @@ export default function Feed({ username }) {
 
   return (
     <div className="feed__container">
-      <PostFeed />
+      {user.username === username ? <PostFeed /> : <></>}
       <div className="feed__cards">
         {posts.map((post) => {
           return <Card key={post.id} post={post} />;

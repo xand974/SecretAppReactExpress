@@ -14,7 +14,7 @@ export default function InfoUser({ user }) {
       }
     };
     fetchFriends();
-  }, [user._id]);
+  }, [user]);
   return (
     <div className="profile__infos__user">
       <div className="profile__infos">

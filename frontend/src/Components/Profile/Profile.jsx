@@ -2,14 +2,19 @@ import "./Profile.css";
 import defaultPic from "../../Images/default-user-image.png";
 import Feed from "../Main/Feed/Feed";
 import InfoUser from "../Profile/InfoUser/InfoUser";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../../config/axios";
 import { useParams } from "react-router-dom";
-import Button from "../UserLog/Button/Button";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile({ userId }) {
   const [user, setUser] = useState({});
+  const [follow, setFollow] = useState(false);
   const { username } = useParams();
+  const { user: currentUser } = useContext(AuthContext);
+  useEffect(() => {
+    setFollow(currentUser.following.includes(user?._id));
+  }, [currentUser, user._id]);
 
   useEffect(() => {
     username
@@ -20,6 +25,23 @@ export default function Profile({ userId }) {
           setUser(res.data);
         });
   }, [userId, username]);
+
+  const HandleFollowClick = async () => {
+    try {
+      if (follow) {
+        await api.post(`/user/follow/${user._id}`, {
+          userId: currentUser._id,
+        });
+      } else {
+        await api.post(`/user/unfollow/${user._id}`, {
+          userId: currentUser._id,
+        });
+      }
+    } catch (err) {
+      console.log("erreur " + err);
+    }
+    setFollow(!follow);
+  };
   return (
     <div>
       <div className="background__user">
@@ -40,7 +62,10 @@ export default function Profile({ userId }) {
           <p className="bio">{user.description || "no description"}</p>
         </div>
         <div className="follow__user">
-          <button>Follow</button>
+          <button onClick={HandleFollowClick}>
+            {" "}
+            {follow ? "UnFollow" : "Follow"}
+          </button>
         </div>
       </div>
       <div className="profile__feed__container">

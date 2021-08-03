@@ -39,7 +39,7 @@ module.exports = {
         return res.status(401).send("mot de passe ou identifiant incorrecte");
       }
     } catch (err) {
-      return res.status(500).send(err);
+      return res.status(500).json("erreur  :" + err);
     }
   },
   logout_post: (req, res) => {
@@ -48,10 +48,11 @@ module.exports = {
   },
   follow_post: async (req, res) => {
     try {
-      const { userId } = req.session;
-      var { id } = req.params;
+      const { userId } = req.body;
+      const { id } = req.params;
       const userFound = await User.findOne({ _id: userId });
-      const userToFollow = await User.findById({ _id: id });
+      const userToFollow = await User.findById(id);
+      console.log(id);
       const { password, updatedAt, ...other } = userToFollow._doc;
       if (!userFound)
         return res
@@ -99,7 +100,7 @@ module.exports = {
     }
   },
   unfollow_post: async (req, res) => {
-    const { userId } = req.session;
+    const { userId } = req.body;
     var { id } = req.params;
     const userFound = await User.findOne({ _id: userId });
     const userToUnFollow = await User.findById({ _id: id });

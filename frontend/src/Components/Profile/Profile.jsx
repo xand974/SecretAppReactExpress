@@ -63,7 +63,6 @@ export default function Profile({ userId }) {
         </div>
         <div className="follow__user">
           <button onClick={HandleFollowClick}>
-            {" "}
             {follow ? "UnFollow" : "Follow"}
           </button>
         </div>

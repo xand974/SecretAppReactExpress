@@ -19,7 +19,6 @@ export default function Card({ post }) {
     });
   }, [post.userId]);
   const IF = process.env.REACT_APP_IMAGES_FOLDER;
-  console.log("image folder : ", IF);
 
   //check si le user a déjà like un post ou pas
   useEffect(() => {

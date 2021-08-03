@@ -5,6 +5,7 @@ import InfoUser from "../Profile/InfoUser/InfoUser";
 import { useEffect, useState } from "react";
 import api from "../../config/axios";
 import { useParams } from "react-router-dom";
+import Button from "../UserLog/Button/Button";
 
 export default function Profile({ userId }) {
   const [user, setUser] = useState({});
@@ -34,8 +35,13 @@ export default function Profile({ userId }) {
         />
       </div>
       <div className="name__user__container">
-        <h5>{user.username}</h5>
-        <p className="bio">{user.description || "no description"}</p>
+        <div>
+          <h5>{user.username}</h5>
+          <p className="bio">{user.description || "no description"}</p>
+        </div>
+        <div className="follow__user">
+          <button>Follow</button>
+        </div>
       </div>
       <div className="profile__feed__container">
         <Feed key={user.id} username={username} />

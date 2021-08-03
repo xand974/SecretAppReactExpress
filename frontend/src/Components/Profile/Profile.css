@@ -36,3 +36,19 @@
   flex-direction: column;
   margin-top: 100px;
 }
+
+.follow__user button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: black;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.follow__user button:hover {
+  background-color: #cecece;
+  color: black;
+}

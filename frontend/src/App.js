@@ -16,8 +16,6 @@ import Register from "./Components/UserLog/Register/Register";
 
 function App() {
   const { user } = useContext(AuthContext);
-
-  console.log("user", user);
   return (
     <div className="App">
       <Router>

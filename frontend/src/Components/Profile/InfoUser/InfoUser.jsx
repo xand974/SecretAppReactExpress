@@ -8,7 +8,6 @@ export default function InfoUser({ user }) {
     var fetchFriends = async () => {
       try {
         const res = await Api.get(`/user/${user._id}/friends`);
-        console.log("friendsUser : ", res.data);
         return setFriendsUser(res.data);
       } catch (err) {
         console.log(err);

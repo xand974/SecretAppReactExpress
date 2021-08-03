@@ -9,12 +9,14 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile({ userId }) {
   const [user, setUser] = useState({});
-  const [follow, setFollow] = useState(false);
   const { username } = useParams();
-  const { user: currentUser } = useContext(AuthContext);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [follow, setFollow] = useState(
+    currentUser.following.includes(user?._id)
+  );
   useEffect(() => {
     setFollow(currentUser.following.includes(user?._id));
-  }, [currentUser, user._id]);
+  }, [currentUser, user?._id]);
 
   useEffect(() => {
     username
@@ -29,13 +31,15 @@ export default function Profile({ userId }) {
   const HandleFollowClick = async () => {
     try {
       if (follow) {
-        await api.post(`/user/follow/${user._id}`, {
-          userId: currentUser._id,
-        });
-      } else {
         await api.post(`/user/unfollow/${user._id}`, {
           userId: currentUser._id,
         });
+        dispatch({ type: "UNFOLLOW", payload: user._id });
+      } else {
+        await api.post(`/user/follow/${user._id}`, {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "FOLLOW", payload: user._id });
       }
     } catch (err) {
       console.log("erreur " + err);

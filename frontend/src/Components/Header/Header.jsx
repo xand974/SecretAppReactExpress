@@ -7,7 +7,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Header() {
   const { user } = useContext(AuthContext);
-  console.log("this user", user);
   return (
     <div>
       <nav>

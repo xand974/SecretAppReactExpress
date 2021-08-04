@@ -25,6 +25,18 @@ export default function Card({ post }) {
     setIsLiked(post.likes.includes(currentUser._id));
   }, [currentUser._id, post.likes]);
 
+  var HandleDelete = async (id) => {
+    try {
+      const res = await api.delete(`/home/${id}`, {
+        data: { userId: currentUser._id },
+      });
+      console.log(res.data);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   var HandleLikeClick = async () => {
     setIsLiked(!isLiked);
     setIsFav(!isFav);
@@ -57,8 +69,18 @@ export default function Card({ post }) {
         <div className="card__more">
           <MoreHoriz className="more" />
           <div className="card__delete">
-            <form>
-              <button>Delete</button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <button
+                onClick={() => {
+                  HandleDelete(post._id);
+                }}
+              >
+                Delete
+              </button>
             </form>
           </div>
         </div>

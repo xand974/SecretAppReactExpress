@@ -7,7 +7,7 @@ router.get("/", home_controller.all_notes_get);
 router.post("/create", home_controller.create_notes_post);
 
 router.patch("/:id", home_controller.update_note_patch);
-router.delete("/:id", cookie.authorize, home_controller.delete_note_delete);
+router.delete("/:id", home_controller.delete_note_delete);
 router.patch("/like/:id", home_controller.like_note_patch);
 
 router.get("/:id", cookie.authorize, home_controller.get_note_get);

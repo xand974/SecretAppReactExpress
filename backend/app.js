@@ -11,28 +11,23 @@ const Error404 = require("./middlewares/page.not.found");
 const user_router = require("./routes/user.route");
 const cors = require("cors");
 const multer = require("multer");
-const fs = require("fs");
-const { promisify } = require("util");
-const pipeline = promisify(require("stream").pipeline);
 
 app.use(cors());
 //voir dans le navigateur le dossier avec les images
 const path = require("path");
 
-var upload = multer();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, `${__dirname}/public/uploadImages`);
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.name);
+  },
+});
+
+var upload = multer({ storage });
 app.post("/api/upload", upload.single("file"), async (req, res) => {
-  const {
-    file,
-    body: { name },
-  } = req;
-
-  console.log(file, name);
-
   try {
-    await pipeline(
-      file.stream,
-      fs.createWriteStream(`${__dirname}/public/uploadImages/${name}`)
-    );
     return res.send("file uploaded successfully");
   } catch (err) {
     return res.status(500).json("erreur : " + err);

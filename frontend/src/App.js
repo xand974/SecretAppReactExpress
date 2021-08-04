@@ -13,9 +13,14 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Login from "./Components/UserLog/Login/Login";
 import Register from "./Components/UserLog/Register/Register";
+import { useCookies } from "react-cookie";
 
 function App() {
   const { user } = useContext(AuthContext);
+  const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
+
+  setCookie("userId", user?._id);
+
   return (
     <div className="App">
       <Router>

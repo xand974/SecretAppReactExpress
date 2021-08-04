@@ -108,3 +108,44 @@
 .post__comment {
   cursor: pointer;
 }
+
+.card__delete {
+  background-color: black;
+
+  position: absolute;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.card__more {
+  position: relative;
+}
+
+.card__more:hover > .card__delete {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.card__delete form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__delete button {
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 200;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.card__delete button:hover {
+  background-color: #a8a8a8;
+}

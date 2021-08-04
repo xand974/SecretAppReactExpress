@@ -56,6 +56,11 @@ export default function Card({ post }) {
         </div>
         <div className="card__more">
           <MoreHoriz className="more" />
+          <div className="card__delete">
+            <form>
+              <button>Delete</button>
+            </form>
+          </div>
         </div>
       </div>
       <div className="card__body">

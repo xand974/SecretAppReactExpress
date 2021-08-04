@@ -49,7 +49,6 @@ module.exports = {
   delete_note_delete: async (req, res) => {
     const noteFound = await Note.findById(req.params.id);
     !noteFound && res.status(404).send("aucune note trouvée");
-    console.log(noteFound.userId, req.body.userId);
     try {
       if (noteFound.userId === req.body.userId) {
         await noteFound.deleteOne();

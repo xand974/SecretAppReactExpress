@@ -10,7 +10,7 @@ import "../UserLog.css";
 export default function Login() {
   const username = useRef();
   const password = useRef();
-  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  const { isFetching, dispatch } = useContext(AuthContext);
 
   var HandleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,6 @@ export default function Login() {
       },
       dispatch
     );
-    console.log(user);
   };
 
   return (

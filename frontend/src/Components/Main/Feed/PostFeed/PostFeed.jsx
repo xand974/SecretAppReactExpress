@@ -8,26 +8,25 @@ import Api from "../../../../config/axios";
 export default function PostFeed() {
   const { user } = useContext(AuthContext);
   const content = useRef();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState();
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
 
-    var newPost;
-
+    var newPost = {
+      userId: user._id,
+      content: content.current.value,
+    };
     if (file) {
-      const fileName = file.name;
-      var data = new FormData();
-      //envoie fichier
+      const data = new FormData();
+
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
       data.append("file", file);
 
-      //envoie nom du fichier
-      data.append("name", fileName);
-      newPost = {
-        userId: user._id,
-        content: content.current.value,
-        notePicture: fileName,
-      };
+      console.log(fileName);
+
+      newPost.notePicture = fileName;
 
       try {
         await Api.post("/upload", data);
@@ -35,12 +34,14 @@ export default function PostFeed() {
         console.log(err);
       }
     }
+
     try {
       await Api.post("/home/create", newPost);
       window.location.reload();
     } catch (err) {
       console.log(err);
     }
+
     content.current.value = "";
   };
 
@@ -69,7 +70,8 @@ export default function PostFeed() {
             id="file"
             accept=".png , .jpeg , .jpg"
             onChange={(e) => {
-              setFile(e.currentTarget.files[0]);
+              const file = e.target.files[0];
+              setFile(file);
             }}
           />
         </label>

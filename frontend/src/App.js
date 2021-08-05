@@ -65,16 +65,16 @@ function App() {
           <Route path="/register" exact>
             <Register />
           </Route>
-          {user ? (
-            <>
-              <Route path="/chat" exact>
+          <Route path="/chat" exact>
+            {user ? (
+              <>
                 <Header />
                 <Chat />
-              </Route>
-            </>
-          ) : (
-            <Login />
-          )}
+              </>
+            ) : (
+              <Redirect to="/" />
+            )}
+          </Route>
         </Switch>
       </Router>
     </div>

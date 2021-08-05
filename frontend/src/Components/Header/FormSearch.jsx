@@ -16,6 +16,7 @@ export default function FormSearch() {
           value={userInput}
           type="text"
           name="title"
+          placeholder="rechercher une personne, un post,..."
         />
         <button>Rechercher</button>
       </form>

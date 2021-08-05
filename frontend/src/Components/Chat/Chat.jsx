@@ -38,7 +38,14 @@ export default function Chat() {
           </div>
         </div>
       </div>
-      <div className="chat__online__friends"></div>
+      <div className="chat__online__friends">
+        <div className="chatonline__wrapper">
+          <OnlineFriend
+            username="pomme"
+            picture="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -45,7 +45,9 @@ export default function Navigation({ user }) {
       </div>
       <div className="icon__container">
         <Notifications />
-        <Message />
+        <Link to="/chat" style={{ color: "black" }}>
+          <Message />
+        </Link>
       </div>
       <div className="navigation__pic">
         <Link to={`/profile/${user.username}`}>

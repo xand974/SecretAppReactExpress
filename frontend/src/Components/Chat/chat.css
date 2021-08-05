@@ -4,7 +4,7 @@
   grid-template-columns: 25% 50% 1fr;
 }
 
-.chat__container > div {
+.chat__container > div:not(.chat__box) {
   padding: 20px;
   overflow-y: scroll;
 }
@@ -12,6 +12,11 @@
 .chat__box {
   border-left: 1px solid rgb(218, 218, 218);
   border-right: 1px solid rgb(218, 218, 218);
+  padding: 20px;
+}
+.chatbox__top {
+  overflow-y: scroll;
+  height: calc(90vh - 110px);
 }
 
 /*CHAT MENU**/
@@ -30,4 +35,41 @@
   padding-bottom: 20px;
   border-bottom: 1px solid rgb(218, 218, 218);
   color: rgb(148, 148, 148);
+}
+
+/*CHAT BOX**/
+
+.chatbox__bottom {
+  margin-top: 20px;
+}
+.chatbox__bottom form {
+  display: flex;
+}
+.chatbox__bottom textarea {
+  width: 100%;
+  outline: none;
+  resize: none;
+  padding: 5px 10px;
+  font-family: sans-serif;
+  border: 1px solid rgb(218, 218, 218);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.chatbox__bottom button {
+  background-color: #307b85;
+  padding: 0px 5px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+  cursor: pointer;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: white;
+  font-family: sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.chatbox__bottom button:hover {
+  background-color: white;
+  color: black;
 }

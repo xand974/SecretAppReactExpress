@@ -30,7 +30,12 @@ export default function Chat() {
             <Message own={true} />
             <Message own={false} />
           </div>
-          <div className="chatbox__bottom"></div>
+          <div className="chatbox__bottom">
+            <form>
+              <textarea type="text" placeholder="votre message" />
+              <button>Envoyer</button>
+            </form>
+          </div>
         </div>
       </div>
       <div className="chat__online__friends"></div>

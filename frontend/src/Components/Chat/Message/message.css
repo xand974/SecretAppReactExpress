@@ -33,3 +33,8 @@
   background-color: #eeeeee;
   color: black;
 }
+
+.message__time {
+  font-size: 12px;
+  font-family: sans-serif;
+}

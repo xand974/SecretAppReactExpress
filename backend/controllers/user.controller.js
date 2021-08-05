@@ -47,56 +47,22 @@ module.exports = {
     return res.json("vous êtes déconnecté");
   },
   follow_post: async (req, res) => {
+    const { userId } = req.body;
     try {
-      const { userId } = req.body;
-      const { id } = req.params;
-      const userFound = await User.findOne({ _id: userId });
-      const userToFollow = await User.findById(id);
-      console.log(id);
-      const { password, updatedAt, ...other } = userToFollow._doc;
-      if (!userFound)
-        return res
-          .status(401)
-          .send("vous devez vous connecter pour ajouter cette personne");
+      const currentUser = await User.findById(userId);
+      const userToFollow = await User.findById(req.params.id);
 
-      if (userFound._id == id)
-        return res.status(401).send("vous ne pouvez pas vous suivre vous même");
+      if (userId === req.params.id) {
+        return res.status(403).send("vous ne pouvez pas vous auto-suivre");
+      }
 
-      if (!userToFollow)
-        return res.status(404).send("cette personne n'a pas été trouvé");
-
-      if (userFound.following.length === 0) {
-        User.findByIdAndUpdate(
-          { _id: userId },
-          { $push: { following: other } }
-        ).then(() => {
-          return res
-            .status(200)
-            .send("personne ajouté car zero personne encore :" + userToFollow);
-        });
-      } else {
-        userFound.following.forEach((user) => {
-          if (user.username === userToFollow.username) {
-            return res.status(401).send("vous suivez déjà cette personne");
-          } else {
-            User.findByIdAndUpdate(
-              { _id: userId },
-              { $push: { following: other } }
-            ).then(() => {
-              return res
-                .status(200)
-                .send(
-                  "personne ajouté car " +
-                    userFound.following.length +
-                    "personnes dans le tableau:" +
-                    userToFollow
-                );
-            });
-          }
-        });
+      if (!currentUser.following.includes(userToFollow._id)) {
+        const { password, updatedAt, ...rest } = userToFollow._doc;
+        await currentUser.updateOne({ $push: { following: rest } });
+        return res.status(200).send("you follow now : " + rest);
       }
     } catch (err) {
-      return res.status(500).send(err);
+      res.status(500).json("err : " + err);
     }
   },
   unfollow_post: async (req, res) => {

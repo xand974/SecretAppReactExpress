@@ -4,7 +4,7 @@
   grid-template-columns: 25% 50% 1fr;
 }
 
-.chat__menu {
+.chat__container > div {
   padding: 20px;
   overflow-y: scroll;
 }
@@ -12,9 +12,6 @@
 .chat__box {
   border-left: 1px solid rgb(218, 218, 218);
   border-right: 1px solid rgb(218, 218, 218);
-}
-
-.chat__online__friends {
 }
 
 /*CHAT MENU**/

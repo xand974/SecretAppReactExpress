@@ -48,6 +48,7 @@ app.use(morgan("common"));
 app.use("/api/home", home_router);
 app.use("/api/user", user_router);
 app.use("/api/conversation", conversation_router);
+app.use("/api/message", message_router);
 
 app.use(Error404);
 

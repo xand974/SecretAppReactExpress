@@ -1,5 +1,4 @@
 const Conversation = require("../models/Conversation");
-const User = require("../models/User");
 
 module.exports = {
   //create conv
@@ -30,7 +29,7 @@ module.exports = {
   delete_conversation: async (req, res) => {
     try {
       await Conversation.deleteOne({
-        members: { $in: [req.body.senderId, req.params.receiverId] },
+        members: { $all: [req.body.senderId, req.params.receiverId] },
       });
 
       return res.json("deleted succesfully");

@@ -9,6 +9,8 @@ const morgan = require("morgan");
 const home_router = require("./routes/home.route");
 const Error404 = require("./middlewares/page.not.found");
 const user_router = require("./routes/user.route");
+const conversation_router = require("./routes/conversation.route");
+const message_router = require("./routes/message.route");
 const cors = require("cors");
 const multer = require("multer");
 
@@ -46,6 +48,7 @@ app.use(morgan("common"));
 
 app.use("/api/home", home_router);
 app.use("/api/user", user_router);
+app.use("/api/conversation", conversation_router);
 
 app.use(Error404);
 

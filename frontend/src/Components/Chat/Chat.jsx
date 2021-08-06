@@ -1,7 +1,28 @@
 import "./chat.css";
+import Conversation from "./Conversation/Conversation";
 import OnlineFriend from "../Main/Contact/OnlineFriend/OnlineFriend";
 import Message from "./Message/Message";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
+import Api from "../../config/axios";
+
 export default function Chat() {
+  const [conversations, setConversations] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const GetConversation = async () => {
+      try {
+        const res = await Api.get(`/conversation/${user?._id}`);
+        setConversations(res.data);
+      } catch (err) {
+        console.log("erreur  : " + err);
+      }
+    };
+    GetConversation();
+  }, [user?._id]);
+
   return (
     <div className="chat__container">
       <div className="chat__menu">
@@ -9,9 +30,15 @@ export default function Chat() {
           <input placeholder="Rechercher un ami" />
         </form>
 
-        <OnlineFriend username="Momo" />
-        <OnlineFriend username="Momo" />
-        <OnlineFriend username="Momo" />
+        {conversations.map((conv) => {
+          return (
+            <Conversation
+              conversation={conv}
+              currentUser={user}
+              key={conv._id}
+            />
+          );
+        })}
       </div>
       <div className="chat__box">
         <div className="chatbox__wrap">

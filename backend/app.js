@@ -43,7 +43,6 @@ app.use("/images", express.static(path.join(__dirname, "public/uploadImages")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-
 app.use(morgan("common"));
 
 app.use("/api/home", home_router);

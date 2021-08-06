@@ -3,5 +3,4 @@ import Axios from "axios";
 export default Axios.create({
   baseURL: "http://localhost:3001/api",
   responseType: "json",
-  proxy: true,
 });

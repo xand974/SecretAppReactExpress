@@ -1,4 +1,4 @@
-Application de type secret avec authentification (local et o-auth)
+Application de type secret avec authentification
 Frontend :React
 Backend : Node.js - Express
 Database : MongoDB - Mongoose

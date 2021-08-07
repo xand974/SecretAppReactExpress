@@ -9,7 +9,7 @@ import Api from "../../config/axios";
 
 export default function Chat() {
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(false);
+  const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
 
   const { user } = useContext(AuthContext);
@@ -26,19 +26,19 @@ export default function Chat() {
     GetConversation();
   }, [user?._id]);
 
-  // useEffect(() => {
-  //   const GetCurrentChat = () => {};
-  //   GetCurrentChat();
-  // }, [conversations._id, conversations]);
+  useEffect(() => {
+    const GetMessages = async () => {
+      try {
+        const res = await Api.get(`/message/${currentChat?._id}`);
+        setMessages(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    GetMessages();
+  }, [currentChat]);
 
-  var HandleStartConversation = async (conversationId) => {
-    try {
-      const res = await Api.get(`/message/${conversationId}`);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  console.log(messages);
 
   return (
     <div className="chat__container">
@@ -51,8 +51,7 @@ export default function Chat() {
           return (
             <div
               onClick={() => {
-                console.log(conv._id);
-                HandleStartConversation(conv._id);
+                setCurrentChat(conv);
               }}
             >
               <Conversation
@@ -69,8 +68,14 @@ export default function Chat() {
           {currentChat ? (
             <>
               <div className="chatbox__top">
-                <Message own={true} />
-                <Message own={true} />
+                {messages.map((m) => {
+                  return (
+                    <Message
+                      message={m}
+                      own={m.sender === user._id ? true : false}
+                    />
+                  );
+                })}
               </div>
               <div className="chatbox__bottom">
                 <form>

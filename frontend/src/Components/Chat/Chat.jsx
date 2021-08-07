@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Api from "../../config/axios";
 
 export default function Chat() {
+  var [userMessage, setUserMessage] = useState("");
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -38,7 +39,20 @@ export default function Chat() {
     GetMessages();
   }, [currentChat]);
 
-  console.log(messages);
+  const HandleSendMessage = async () => {
+    var newMessage = {
+      sender: user._id,
+      conversationId: currentChat._id,
+      text: userMessage,
+    };
+
+    try {
+      const res = await Api.post("/message/", newMessage);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="chat__container">
@@ -78,9 +92,20 @@ export default function Chat() {
                 })}
               </div>
               <div className="chatbox__bottom">
-                <form>
-                  <textarea type="text" placeholder="votre message" />
-                  <button>Envoyer</button>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setUserMessage("");
+                  }}
+                >
+                  <textarea
+                    onChange={(e) => {
+                      setUserMessage(e.target.value);
+                    }}
+                    type="text"
+                    placeholder="votre message"
+                  />
+                  <button onClick={HandleSendMessage}>Envoyer</button>
                 </form>
               </div>
             </>

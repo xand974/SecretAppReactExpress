@@ -2,12 +2,13 @@ import "./chat.css";
 import Conversation from "./Conversation/Conversation";
 import OnlineFriend from "../Main/Contact/OnlineFriend/OnlineFriend";
 import Message from "./Message/Message";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import Api from "../../config/axios";
 
 export default function Chat() {
+  const scrollToTheEnd = useRef();
   var [userMessage, setUserMessage] = useState("");
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -48,11 +49,17 @@ export default function Chat() {
 
     try {
       const res = await Api.post("/message/", newMessage);
-      console.log(res);
+      console.log(res.data);
+      setMessages([...messages, res.data]);
+      setUserMessage("");
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    scrollToTheEnd.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="chat__container">
@@ -84,10 +91,13 @@ export default function Chat() {
               <div className="chatbox__top">
                 {messages.map((m) => {
                   return (
-                    <Message
-                      message={m}
-                      own={m.sender === user._id ? true : false}
-                    />
+                    <div ref={scrollToTheEnd}>
+                      <Message
+                        key={m._id}
+                        message={m}
+                        own={m.sender === user._id ? true : false}
+                      />
+                    </div>
                   );
                 })}
               </div>
@@ -95,13 +105,13 @@ export default function Chat() {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    setUserMessage("");
                   }}
                 >
                   <textarea
                     onChange={(e) => {
                       setUserMessage(e.target.value);
                     }}
+                    value={userMessage}
                     type="text"
                     placeholder="votre message"
                   />

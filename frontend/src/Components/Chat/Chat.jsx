@@ -9,6 +9,9 @@ import Api from "../../config/axios";
 
 export default function Chat() {
   const [conversations, setConversations] = useState([]);
+  const [currentChat, setCurrentChat] = useState(false);
+  const [messages, setMessages] = useState([]);
+
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -23,6 +26,20 @@ export default function Chat() {
     GetConversation();
   }, [user?._id]);
 
+  // useEffect(() => {
+  //   const GetCurrentChat = () => {};
+  //   GetCurrentChat();
+  // }, [conversations._id, conversations]);
+
+  var HandleStartConversation = async (conversationId) => {
+    try {
+      const res = await Api.get(`/message/${conversationId}`);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="chat__container">
       <div className="chat__menu">
@@ -32,37 +49,39 @@ export default function Chat() {
 
         {conversations.map((conv) => {
           return (
-            <Conversation
-              conversation={conv}
-              currentUser={user}
-              key={conv._id}
-            />
+            <div
+              onClick={() => {
+                console.log(conv._id);
+                HandleStartConversation(conv._id);
+              }}
+            >
+              <Conversation
+                conversation={conv}
+                currentUser={user}
+                key={conv._id}
+              />
+            </div>
           );
         })}
       </div>
       <div className="chat__box">
         <div className="chatbox__wrap">
-          <div className="chatbox__top">
-            <Message own={true} />
-            <Message own={true} />
-            <Message own={false} />
-            <Message own={true} />
-            <Message own={false} />
-            <Message own={true} />
-            <Message own={false} />
-            <Message own={true} />
-            <Message own={false} />
-            <Message own={true} />
-            <Message own={false} />
-            <Message own={true} />
-            <Message own={false} />
-          </div>
-          <div className="chatbox__bottom">
-            <form>
-              <textarea type="text" placeholder="votre message" />
-              <button>Envoyer</button>
-            </form>
-          </div>
+          {currentChat ? (
+            <>
+              <div className="chatbox__top">
+                <Message own={true} />
+                <Message own={true} />
+              </div>
+              <div className="chatbox__bottom">
+                <form>
+                  <textarea type="text" placeholder="votre message" />
+                  <button>Envoyer</button>
+                </form>
+              </div>
+            </>
+          ) : (
+            <span className="open__conversation">Open a conversation</span>
+          )}
         </div>
       </div>
       <div className="chat__online__friends">

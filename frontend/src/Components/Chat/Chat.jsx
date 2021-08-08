@@ -15,6 +15,7 @@ export default function Chat() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineFriend, setOnlineFriend] = useState([]);
   var socket = useRef();
   const { user } = useContext(AuthContext);
 
@@ -41,7 +42,7 @@ export default function Chat() {
   useEffect(() => {
     socket.current?.emit("sendUser", user?._id);
     socket.current?.on("newUsers", (users) => {
-      console.log(users);
+      setOnlineFriend(users);
     });
   }, [user]);
 
@@ -85,7 +86,6 @@ export default function Chat() {
     });
     try {
       const res = await Api.post("/message/", newMessage);
-      console.log(res.data);
       setMessages([...messages, res.data]);
       setUserMessage("");
     } catch (err) {
@@ -163,7 +163,10 @@ export default function Chat() {
       <div className="chat__online__friends">
         <div className="chatonline__wrapper">
           <OnlineFriend
-            username="pomme"
+            onlineFriend={onlineFriend}
+            user={user}
+            setCurrentChat={setCurrentChat}
+            username="Pomme"
             picture="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
           />
         </div>

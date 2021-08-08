@@ -14,12 +14,19 @@ export default function Chat() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+  var socket = useRef();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:8080"));
+    socket.current = io("ws://localhost:8080");
   }, []);
+
+  useEffect(() => {
+    socket.current?.emit("sendUser", user?._id);
+    socket.current?.on("newUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
 
   useEffect(() => {
     const GetConversation = async () => {

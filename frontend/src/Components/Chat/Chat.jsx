@@ -14,12 +14,29 @@ export default function Chat() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState(null);
   var socket = useRef();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
     socket.current = io("ws://localhost:8080");
+    socket.current.on("getMessage", (res) => {
+      setArrivalMessage({
+        sender: res.senderId,
+        text: res.text,
+        createdAt: Date.now(),
+      });
+    });
   }, []);
+
+  useEffect(() => {
+    //check les nv messages depuis socket
+    arrivalMessage &&
+      //check si les messages sont bien envoyés aux bonnes personnes, sinon
+      //va être envoyé à tout le monde des diff conversations
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     socket.current?.emit("sendUser", user?._id);
@@ -52,6 +69,8 @@ export default function Chat() {
     GetMessages();
   }, [currentChat]);
 
+  const receiverId = currentChat?.members.find((member) => member !== user._id);
+
   const HandleSendMessage = async () => {
     var newMessage = {
       sender: user._id,
@@ -59,6 +78,11 @@ export default function Chat() {
       text: userMessage,
     };
 
+    socket.current?.emit("sendMessage", {
+      senderId: user?._id,
+      text: userMessage,
+      receiverId: receiverId,
+    });
     try {
       const res = await Api.post("/message/", newMessage);
       console.log(res.data);

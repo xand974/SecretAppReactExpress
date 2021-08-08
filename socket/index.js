@@ -15,6 +15,10 @@ function removeUser(socketId) {
   users = users.filter((user) => user.socketId !== socketId);
 }
 
+function findCorrectUser(userId) {
+  return users.find((user) => user.userId === userId);
+}
+
 io.on("connection", (socket) => {
   socket.on("sendUser", (res) => {
     console.log("user connected");
@@ -25,5 +29,14 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
     removeUser(socket.id);
     io.emit("newUsers", users);
+  });
+
+  //recup message du user
+  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+    //recup le bon user avec son id dans le tableau users
+    const user = findCorrectUser(receiverId);
+
+    //on envoie le message avec son socketId
+    io.to(user.socketId).emit("getMessage", { senderId, text });
   });
 });

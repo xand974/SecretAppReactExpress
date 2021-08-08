@@ -4,6 +4,7 @@ import OnlineFriend from "../Main/Contact/OnlineFriend/OnlineFriend";
 import Message from "./Message/Message";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { io } from "socket.io-client";
 
 import Api from "../../config/axios";
 
@@ -13,8 +14,12 @@ export default function Chat() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-
+  const [socket, setSocket] = useState(null);
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    setSocket(io("ws://localhost:8080"));
+  }, []);
 
   useEffect(() => {
     const GetConversation = async () => {

@@ -12,23 +12,10 @@ export default function Profile({ userId }) {
   const { username } = useParams();
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [follow, setFollow] = useState(
-    currentUser.following.map((follow) => follow._id).includes(user._id)
+    currentUser.following.includes(user._id)
   );
 
-  var arr = [
-    { id: 1, name: "alex" },
-    { id: 4, name: "pomme" },
-    { id: 5, name: "malet" },
-  ];
-  console.log(arr.map((a) => a.name).includes("alex"));
-
   useEffect(() => {
-    // for (let i = 0; i < currentUser.following.length; i++) {
-    //   if (currentUser.following[i]._id === user._id) {
-    //     setFollow(true);
-    //     break;
-    //   }
-    // }
     setFollow(currentUser.following.includes(user._id));
   }, [currentUser, user?._id]);
 

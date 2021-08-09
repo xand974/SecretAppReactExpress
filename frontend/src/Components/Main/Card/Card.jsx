@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import defaultPic from "../../../Images/default-user-image.png";
-import { Favorite, MoreHoriz, ThumbUp } from "@material-ui/icons";
+import { MoreHoriz, ThumbUp } from "@material-ui/icons";
 import "./Card.css";
 import * as timeago from "timeago.js";
 import { Link } from "react-router-dom";
@@ -9,7 +9,6 @@ import { AuthContext } from "../../../context/AuthContext";
 
 export default function Card({ post }) {
   const [isLiked, setIsLiked] = useState(false);
-  const [isFav, setIsFav] = useState(false);
   var [likesCount, setLikesCount] = useState(post.likes.length);
   const [user, setUser] = useState({});
   const { user: currentUser } = useContext(AuthContext);
@@ -39,8 +38,7 @@ export default function Card({ post }) {
 
   var HandleLikeClick = async () => {
     setIsLiked(!isLiked);
-    setIsFav(!isFav);
-    setLikesCount(isLiked || isFav ? likesCount - 1 : likesCount + 1);
+    setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
     try {
       const res = await api.patch("/home/like/" + post._id, {
         userId: currentUser._id,
@@ -104,15 +102,6 @@ export default function Card({ post }) {
           <ThumbUp
             className="thumb"
             style={{ background: isLiked ? "rgb(126, 126, 253)" : "#a8a8a8" }}
-            onClick={HandleLikeClick}
-          />
-          <Favorite
-            className="fav"
-            tabIndex="1"
-            style={{
-              background: isFav ? "rgb(250, 82, 82)" : "#a8a8a8",
-              outline: "none",
-            }}
             onClick={HandleLikeClick}
           />
           <span className="post__liked">{likesCount} People like it</span>

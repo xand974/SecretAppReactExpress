@@ -6,7 +6,6 @@ import Api from "../../../../config/axios";
 import "./OnlineFriend.css";
 export default function OnlineFriend({
   username,
-  profilePicture,
   onlineFriend,
   setCurrentChat,
   user,
@@ -24,17 +23,33 @@ export default function OnlineFriend({
 
   useEffect(() => {
     //check si le user est connecté : si il y a un web socket ou non
-    setOnlineFriends(friends.filter((f) => onlineFriend.includes(f._id)));
+    setOnlineFriends(
+      friends.filter((f) => onlineFriend.some((fr) => fr.userId === f._id))
+    );
   }, [friends, onlineFriend]);
 
-  console.log("online  : ", onlineFriends);
+  useEffect(() => {}, []);
+
+  const handleOpenConversation = async (user) => {
+    try {
+      const res = await Api.get("/conversation/" + user._id);
+      setCurrentChat(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="online__main">
       {onlineFriends.map((o) => {
         return (
           <>
-            <div className="online__image__container">
+            <div
+              className="online__image__container"
+              onClick={() => {
+                handleOpenConversation(o);
+              }}
+            >
               <img
                 className="online__image"
                 src={o?.profilePicture || defaultPic}

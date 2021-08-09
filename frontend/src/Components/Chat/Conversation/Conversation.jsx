@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import defaultPic from "../../../Images/default-user-image.png";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import Api from "../../../config/axios";
 
 export default function Conversation({ conversation, currentUser }) {
@@ -30,7 +29,6 @@ export default function Conversation({ conversation, currentUser }) {
             src={user?.profilePicture || defaultPic}
             alt="profile"
           />
-          <FiberManualRecordIcon className="online" />
         </div>
         <div>
           <p className="online__name">{user?.username}</p>

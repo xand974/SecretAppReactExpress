@@ -37,4 +37,15 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+  //get conv with two userId
+  get_conversations_with_two_userId: async () => {
+    try {
+      const conv = await Conversation.findOne({
+        members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+      });
+      return res.status(200).json(conv);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  },
 };

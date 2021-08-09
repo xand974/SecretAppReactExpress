@@ -7,4 +7,8 @@ router.delete(
   "/delete/:receiverId",
   conversation_controller.delete_conversation
 );
+router.get(
+  "/find/:firstUserId/:secondUserId",
+  conversation_controller.get_conversations_with_two_userId
+);
 module.exports = router;

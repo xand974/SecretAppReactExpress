@@ -28,11 +28,11 @@ export default function OnlineFriend({
     );
   }, [friends, onlineFriend]);
 
-  useEffect(() => {}, []);
-
-  const handleOpenConversation = async (user) => {
+  const handleOpenConversation = async (friend) => {
     try {
-      const res = await Api.get("/conversation/" + user._id);
+      const res = await Api.get(
+        `/conversation/find/${user?._id}/${friend?._id}`
+      );
       setCurrentChat(res.data);
     } catch (err) {
       console.log(err);

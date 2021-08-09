@@ -38,7 +38,7 @@ module.exports = {
     }
   },
   //get conv with two userId
-  get_conversations_with_two_userId: async () => {
+  get_conversations_with_two_userId: async (req, res) => {
     try {
       const conv = await Conversation.findOne({
         members: { $all: [req.params.firstUserId, req.params.secondUserId] },

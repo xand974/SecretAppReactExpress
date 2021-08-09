@@ -57,8 +57,10 @@ module.exports = {
       }
 
       if (!currentUser.following.includes(userToFollow._id)) {
-        const { password, updatedAt, ...rest } = userToFollow._doc;
-        await currentUser.updateOne({ $push: { following: rest } });
+        const { password, updatedAt, _id, ...rest } = userToFollow._doc;
+
+        await currentUser.updateOne({ $push: { following: _id } });
+        await userToFollow.updateOne({ $push: { followers: currentUser._id } });
         return res.status(200).send("you follow now : " + rest);
       }
     } catch (err) {
@@ -70,11 +72,7 @@ module.exports = {
     var { id } = req.params;
     const userFound = await User.findOne({ _id: userId });
     const userToUnFollow = await User.findById({ _id: id });
-    const { password, updatedAt, ...other } = userToUnFollow._doc;
-    if (!userFound)
-      return res
-        .status(401)
-        .send("vous devez vous connecter pour unfollow cette personne");
+    const { _id } = userToUnFollow._doc;
     if (userFound._id == id)
       return res.status(401).send("vous ne pouvez pas vous unfollow vous même");
 
@@ -82,17 +80,10 @@ module.exports = {
       return res.status(404).send("cette personne n'a pas été trouvé");
 
     try {
-      const result = await User.findOneAndUpdate(
-        { _id: userId },
-        { $pull: { following: other } }
-      );
-      return res
-        .status(200)
-        .send(
-          "utilisateur :" +
-            userToUnFollow.username +
-            " a été enlevé de votre liste d'amis"
-        );
+      await userFound.updateOne({ $pull: { following: _id } });
+      await userToUnFollow.updateOne({ $pull: { followers: userFound._id } });
+
+      return res.status(200).send("user enlevé");
     } catch (err) {
       return res.status(500).send(err);
     }

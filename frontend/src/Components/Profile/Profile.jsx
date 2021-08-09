@@ -29,9 +29,7 @@ export default function Profile({ userId }) {
     //     break;
     //   }
     // }
-    setFollow(
-      currentUser.following.map((follow) => follow._id).includes(user._id)
-    );
+    setFollow(currentUser.following.includes(user._id));
   }, [currentUser, user?._id]);
 
   useEffect(() => {

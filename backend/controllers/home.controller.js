@@ -8,13 +8,6 @@ module.exports = {
       const userFound = await User.findOne({ _id: userId });
       const listFound = await Note.find();
       if (!listFound) return res.json("no list found");
-      if (listFound.length === 0)
-        return res
-          .status(200)
-          .json(
-            "vous êtes sur la page d'acceuil: vous pouvez créer de nouveaux post, bienvenue : " +
-              userFound.username
-          );
 
       return res.status(200).json(listFound);
     } catch (err) {
@@ -32,10 +25,10 @@ module.exports = {
     }
   },
   update_note_patch: async (req, res) => {
-    const noteFound = await Note.findById(req.params.id);
-    !noteFound && res.status(404).send("aucune note trouvée");
     try {
-      if (noteFound.userId == req.session.userId) {
+      const noteFound = await Note.findById(req.params.id);
+      !noteFound && res.status(404).send("aucune note trouvée");
+      if (noteFound.userId == req.body.userId) {
         await noteFound.updateOne({ $set: req.body });
 
         return res.status(200).send("post updated");
@@ -88,7 +81,6 @@ module.exports = {
   },
   get_timelinenote_get: async (req, res) => {
     try {
-      // const userFound = await User.findById(req.params.id);
       const userFound = await User.findById(req.params.id);
       const userNotes = await Note.find({ userId: userFound._id });
       const friendPost = await Promise.all(
